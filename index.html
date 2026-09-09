@@ -200,160 +200,176 @@ var BANK=[
 ];
 var ICONS={"Política do Programa":"📋","Envio de Evidências":"📤","Avaliação 360°":"🎯"};
 var TIME=20,MAX_PTS=1000,MIN_PTS=200,NUM_Q=10,ADM_PASS="ad2026";
-var qs=[],cur=0,score=0,okN=0,errN=0,tmr=null,tLeft=TIME,ans=[],totalTime=0,qStart=0;
+var qs=[],cur=0,score=0,okN=0,errN=0,tmr=null,tLeft=TIME,ans=[];
+var totalTime=0,qStart=0;
 var pName="",pEmail="",isTest=false,locked=false,rankingCache=[];
 
 function showToast(m){var t=document.getElementById("toast");t.textContent=m;t.classList.add("show");setTimeout(function(){t.classList.remove("show")},2500)}
+
 function goTo(id){var s=document.querySelectorAll(".screen");for(var i=0;i<s.length;i++)s[i].classList.remove("on");document.getElementById(id).classList.add("on");window.scrollTo({top:0,behavior:"smooth"});if(id==="scrAdmin")loadRanking()}
+
 function shuffle(a){var r=a.slice();for(var i=r.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=r[i];r[i]=r[j];r[j]=t}return r}
 
 function pickQuestions(){
-  var byB={};for(var i=0;i<BANK.length;i++){var q=BANK[i];if(!byB[q.b])byB[q.b]=[];byB[q.b].push(q)}
-  var sel=[],blocks=Object.keys(byB);
-  for(var b=0;b<blocks.length;b++){var s=shuffle(byB[blocks[b]]);sel.push(s[0],s[1],s[2])}
-  var used={};for(var k=0;k<sel.length;k++)used[sel[k].q]=true;
-  var rem=[];for(var m=0;m<BANK.length;m++){if(!used[BANK[m].q])rem.push(BANK[m])}
-  var ex=shuffle(rem);if(ex.length>0)sel.push(ex[0]);
-  return shuffle(sel).slice(0,NUM_Q);
+var byB={};for(var i=0;i<BANK.length;i++){var q=BANK[i];if(!byB[q.b])byB[q.b]=[];byB[q.b].push(q)}
+var sel=[],blocks=Object.keys(byB);
+for(var b=0;b<blocks.length;b++){var s=shuffle(byB[blocks[b]]);sel.push(s[0],s[1],s[2])}
+var used={};for(var k=0;k<sel.length;k++)used[sel[k].q]=true;
+var rem=[];for(var m=0;m<BANK.length;m++){if(!used[BANK[m].q])rem.push(BANK[m])}
+var ex=shuffle(rem);if(ex.length>0)sel.push(ex[0]);
+return shuffle(sel).slice(0,NUM_Q);
 }
 
 function checkEmail(email,cb){
-  fetch(API_URL).then(function(r){return r.json()}).then(function(d){
-    if(d.status==="ok"&&d.data){var f=false;for(var i=0;i<d.data.length;i++){if(d.data[i].email.toString().toLowerCase()===email.toLowerCase()){f=true;break}}cb(f)}else cb(false)
-  }).catch(function(){cb(false)});
+fetch(API_URL).then(function(r){return r.json()}).then(function(d){
+if(d.status==="ok"&&d.data){var f=false;for(var i=0;i<d.data.length;i++){if(d.data[i].email.toString().toLowerCase()===email.toLowerCase()){f=true;break}}cb(f)}else cb(false)
+}).catch(function(){cb(false)});
 }
 
 function sendResult(cb){
-  fetch(API_URL,{method:"POST",headers:{"Content-Type":"text/plain"},body:JSON.stringify({name:pName,email:pEmail,score:score,ok:okN,err:errN,to:Math.round(totalTime)}),mode:"no-cors"}).then(function(){cb(true)}).catch(function(){cb(false)});
+fetch(API_URL,{method:"POST",headers:{"Content-Type":"text/plain"},body:JSON.stringify({name:pName,email:pEmail,score:score,ok:okN,err:errN,to:Math.round(totalTime)}),mode:"no-cors"}).then(function(){if(cb)cb(true)}).catch(function(){if(cb)cb(false)});
 }
 
 function loadRanking(){
-  document.getElementById("rankHTML").innerHTML='<div class="loading">Carregando</div>';
-  document.getElementById("partHTML").innerHTML='<div class="loading">Carregando</div>';
-  document.getElementById("statsHTML").innerHTML='<div class="loading">Carregando</div>';
-  fetch(API_URL).then(function(r){return r.json()}).then(function(d){
-    if(d.status==="ok"){rankingCache=d.data||[];renderAdm(rankingCache);showToast("✅ Dados carregados!")}
-    else document.getElementById("rankHTML").innerHTML='<div class="empty-msg">Erro ao carregar.</div>';
-  }).catch(function(){document.getElementById("rankHTML").innerHTML='<div class="empty-msg">Erro de conexão.</div>'});
+document.getElementById("rankHTML").innerHTML='<div class="loading">Carregando</div>';
+document.getElementById("partHTML").innerHTML='<div class="loading">Carregando</div>';
+document.getElementById("statsHTML").innerHTML='<div class="loading">Carregando</div>';
+fetch(API_URL).then(function(r){return r.json()}).then(function(d){
+if(d.status==="ok"){rankingCache=d.data||[];renderAdm(rankingCache);showToast("✅ Dados carregados!")}
+else document.getElementById("rankHTML").innerHTML='<div class="empty-msg">Erro ao carregar.</div>';
+}).catch(function(){document.getElementById("rankHTML").innerHTML='<div class="empty-msg">Erro de conexão.</div>'});
 }
 
 function renderAdm(ps){
-  var n=ps.length,avgS=0,avgA=0;
-  if(n>0){var sS=0,sA=0;for(var i=0;i<n;i++){sS+=Number(ps[i].score)||0;sA+=(Number(ps[i].ok)||0)/NUM_Q*100}avgS=Math.round(sS/n);avgA=Math.round(sA/n)}
-  var rH="";
-  if(n===0){rH='<div class="empty-msg">Nenhum participante ainda.</div>'}
-  else{var md=["🥇","🥈","🥉"];rH='<table class="rtable"><thead><tr><th>#</th><th>Nome</th><th>Pontos</th><th>Acertos</th></tr></thead><tbody>';for(var r=0;r<n;r++){var p=r<3?'<span class="medal">'+md[r]+"</span>":(r+1);rH+="<tr><td>"+p+"</td><td>"+ps[r].name+'</td><td style="font-weight:700;color:var(--mred)">'+Number(ps[r].score).toLocaleString("pt-BR")+"</td><td>"+ps[r].ok+"/"+NUM_Q+"</td></tr>"}rH+="</tbody></table>"}
-  document.getElementById("rankHTML").innerHTML=rH;
-  var pH="";
-  if(n===0){pH='<div class="empty-msg">Nenhum participante.</div>'}
-  else{pH='<table class="rtable"><thead><tr><th>Nome</th><th>E-mail</th><th>Pts</th><th>Data</th></tr></thead><tbody>';for(var p2=0;p2<n;p2++){pH+="<tr><td>"+ps[p2].name+'</td><td style="font-size:.68rem;color:var(--lgray)">'+ps[p2].email+'</td><td style="font-weight:700">'+ps[p2].score+'</td><td style="font-size:.68rem;color:var(--lgray)">'+(ps[p2].date||"-")+"</td></tr>"}pH+="</tbody></table>"}
-  document.getElementById("partHTML").innerHTML=pH;
-  document.getElementById("statsHTML").innerHTML='<div class="adm-stats"><div class="as"><div class="asv">'+n+'</div><div class="asl">Participantes</div></div><div class="as"><div class="asv">'+avgS+'</div><div class="asl">Média Pts</div></div><div class="as"><div class="asv">'+avgA+'%</div><div class="asl">Média Acertos</div></div></div>';
+var n=ps.length,avgS=0,avgA=0;
+if(n>0){var sS=0,sA=0;for(var i=0;i<n;i++){sS+=Number(ps[i].score)||0;sA+=(Number(ps[i].ok)||0)/NUM_Q*100}avgS=Math.round(sS/n);avgA=Math.round(sA/n)}
+var rH="";
+if(n===0){rH='<div class="empty-msg">Nenhum participante ainda.</div>'}
+else{var md=["🥇","🥈","🥉"];rH='<table class="rtable"><thead><tr><th>#</th><th>Nome</th><th>Pontos</th><th>Acertos</th></tr></thead><tbody>';for(var r=0;r<n;r++){var p=r<3?'<span class="medal">'+md[r]+"</span>":(r+1);rH+="<tr><td>"+p+"</td><td>"+ps[r].name+'</td><td style="font-weight:700;color:var(--mred)">'+Number(ps[r].score).toLocaleString("pt-BR")+"</td><td>"+ps[r].ok+"/"+NUM_Q+"</td></tr>"}rH+="</tbody></table>"}
+document.getElementById("rankHTML").innerHTML=rH;
+var pH="";
+if(n===0){pH='<div class="empty-msg">Nenhum participante.</div>'}
+else{pH='<table class="rtable"><thead><tr><th>Nome</th><th>E-mail</th><th>Pts</th><th>Data</th></tr></thead><tbody>';for(var p2=0;p2<n;p2++){pH+="<tr><td>"+ps[p2].name+'</td><td style="font-size:.68rem;color:var(--lgray)">'+ps[p2].email+'</td><td style="font-weight:700">'+ps[p2].score+'</td><td style="font-size:.68rem;color:var(--lgray)">'+(ps[p2].date||"-")+"</td></tr>"}pH+="</tbody></table>"}
+document.getElementById("partHTML").innerHTML=pH;
+document.getElementById("statsHTML").innerHTML='<div class="adm-stats"><div class="as"><div class="asv">'+n+'</div><div class="asl">Participantes</div></div><div class="as"><div class="asv">'+avgS+'</div><div class="asl">Média Pts</div></div><div class="as"><div class="asv">'+avgA+'%</div><div class="asl">Média Acertos</div></div></div>';
 }
 
 function exportCSV(){
-  var ps=rankingCache;if(ps.length===0){alert("Nenhum dado.");return}
-  var c="\uFEFFPos,Nome,Email,Pontos,Acertos,Erros,Tempo,Data\n";
-  for(var i=0;i<ps.length;i++)c+=(i+1)+',"'+ps[i].name+'","'+ps[i].email+'",'+ps[i].score+","+ps[i].ok+","+ps[i].err+","+ps[i].to+',"'+(ps[i].date||"")+"\"\n";
-  var b=new Blob([c],{type:"text/csv;charset=utf-8;"});var u=URL.createObjectURL(b);var a=document.createElement("a");a.href=u;a.download="ranking_quiz.csv";document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(u);
+var ps=rankingCache;if(ps.length===0){alert("Nenhum dado.");return}
+var c="\uFEFFPos,Nome,Email,Pontos,Acertos,Erros,Tempo,Data\n";
+for(var i=0;i<ps.length;i++)c+=(i+1)+',"'+ps[i].name+'","'+ps[i].email+'",'+ps[i].score+","+ps[i].ok+","+ps[i].err+","+ps[i].to+',"'+(ps[i].date||"")+"\"\n";
+var b=new Blob([c],{type:"text/csv;charset=utf-8;"});var u=URL.createObjectURL(b);var a=document.createElement("a");a.href=u;a.download="ranking_quiz.csv";document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(u);
 }
 
 function register(){
-  var name=document.getElementById("inpName").value.trim();
-  var email=document.getElementById("inpEmail").value.trim();
-  var err=document.getElementById("errEmail");var btn=document.getElementById("btnStart");
-  err.style.display="none";
-  if(!name){err.textContent="Informe seu nome.";err.style.display="block";return}
-  if(!email||email.indexOf("@")<0||email.indexOf(".")<0){err.textContent="E-mail inválido.";err.style.display="block";return}
-  btn.disabled=true;btn.textContent="Verificando...";
-  checkEmail(email,function(exists){
-    if(exists){err.textContent="⚠️ Este e-mail já participou.";err.style.display="block";btn.disabled=false;btn.textContent="Iniciar Quiz";return}
-    pName=name;pEmail=email;isTest=false;btn.disabled=false;btn.textContent="Iniciar Quiz";startGame();
-  });
+var name=document.getElementById("inpName").value.trim();
+var email=document.getElementById("inpEmail").value.trim();
+var err=document.getElementById("errEmail");var btn=document.getElementById("btnStart");
+err.style.display="none";
+if(!name){err.textContent="Informe seu nome.";err.style.display="block";return}
+if(!email||email.indexOf("@")<0||email.indexOf(".")<0){err.textContent="E-mail inválido.";err.style.display="block";return}
+btn.disabled=true;btn.textContent="Verificando...";
+checkEmail(email,function(exists){
+if(exists){err.textContent="⚠️ Este e-mail já participou.";err.style.display="block";btn.disabled=false;btn.textContent="Iniciar Quiz";return}
+pName=name;pEmail=email;isTest=false;btn.disabled=false;btn.textContent="Iniciar Quiz";startGame();
+});
 }
 
 function startGame(){qs=pickQuestions();cur=0;score=0;okN=0;errN=0;ans=[];locked=false;totalTime=0;initDots();goTo("scrQuiz");loadQ()}
+
 function initDots(){var c=document.getElementById("dots");c.innerHTML="";for(var i=0;i<NUM_Q;i++){var d=document.createElement("div");d.className="dot"+(i===0?" now":"");d.id="d"+i;c.appendChild(d)}}
 
 function updateProg(){
-  document.getElementById("progFill").style.width=(cur/NUM_Q*100)+"%";
-  document.getElementById("progLabel").textContent="Pergunta "+(cur+1)+" de "+NUM_Q;
-  document.getElementById("progScore").textContent=score+" pts";
-  for(var i=0;i<NUM_Q;i++){var d=document.getElementById("d"+i);if(!d)continue;d.className="dot";if(i===cur)d.classList.add("now");else if(i<cur){var a=ans[i];if(a.to)d.classList.add("dto");else if(a.ok)d.classList.add("dok");else d.classList.add("derr")}}
+document.getElementById("progFill").style.width=(cur/NUM_Q*100)+"%";
+document.getElementById("progLabel").textContent="Pergunta "+(cur+1)+" de "+NUM_Q;
+document.getElementById("progScore").textContent=score+" pts";
+for(var i=0;i<NUM_Q;i++){var d=document.getElementById("d"+i);if(!d)continue;d.className="dot";if(i===cur)d.classList.add("now");else if(i<cur){var a=ans[i];if(a.to)d.classList.add("dto");else if(a.ok)d.classList.add("dok");else d.classList.add("derr")}}
 }
 
 function loadQ(){
-  locked=false;updateProg();
-  var q=qs[cur];
-  document.getElementById("bTag").textContent=(ICONS[q.b]||"📌")+" "+q.b;
-  document.getElementById("qNum").textContent=(cur+1)+"/"+NUM_Q;
-  document.getElementById("qTxt").textContent=q.q;
-  var L=["A","B","C"];var ctr=document.getElementById("optsEl");ctr.innerHTML="";
-  for(var i=0;i<q.o.length;i++){var btn=document.createElement("button");btn.className="opt";btn.id="o"+i;btn.setAttribute("data-idx",i);btn.innerHTML='<span class="ol">'+L[i]+"</span><span>"+q.o[i]+"</span>";btn.addEventListener("click",function(){pick(parseInt(this.getAttribute("data-idx")))});ctr.appendChild(btn)}
-  tLeft=TIME;updTimer();var tb=document.getElementById("tBar");tb.style.width="100%";tb.classList.remove("low");
-  clearInterval(tmr);qStart=Date.now();
-  tmr=setInterval(function(){tLeft=Math.max(0,TIME-(Date.now()-qStart)/1000);updTimer();tb.style.width=(tLeft/TIME*100)+"%";if(tLeft<=5)tb.classList.add("low");if(tLeft<=0){clearInterval(tmr);timeout()}},100);
+locked=false;updateProg();
+var q=qs[cur];
+document.getElementById("bTag").textContent=(ICONS[q.b]||"📌")+" "+q.b;
+document.getElementById("qNum").textContent=(cur+1)+"/"+NUM_Q;
+document.getElementById("qTxt").textContent=q.q;
+var L=["A","B","C"];var ctr=document.getElementById("optsEl");ctr.innerHTML="";
+for(var i=0;i<q.o.length;i++){var btn=document.createElement("button");btn.className="opt";btn.id="o"+i;btn.setAttribute("data-idx",i);btn.innerHTML='<span class="ol">'+L[i]+"</span><span>"+q.o[i]+"</span>";btn.addEventListener("click",function(){pick(parseInt(this.getAttribute("data-idx")))});ctr.appendChild(btn)}
+tLeft=TIME;updTimer();var tb=document.getElementById("tBar");tb.style.width="100%";tb.classList.remove("low");
+clearInterval(tmr);qStart=Date.now();
+tmr=setInterval(function(){tLeft=Math.max(0,TIME-(Date.now()-qStart)/1000);updTimer();tb.style.width=(tLeft/TIME*100)+"%";if(tLeft<=5)tb.classList.add("low");if(tLeft<=0){clearInterval(tmr);timeout()}},100);
 }
 
 function updTimer(){var el=document.getElementById("tNum");el.textContent=Math.ceil(tLeft);el.className="timer-num"+(tLeft<=5?" td":tLeft<=10?" tw":"")}
 
 function pick(idx){
-  if(locked)return;locked=true;clearInterval(tmr);
-  var used=(Date.now()-qStart)/1000;totalTime+=used;
-  var q=qs[cur];var btns=document.querySelectorAll(".opt");for(var i=0;i<btns.length;i++)btns[i].disabled=true;
-  var isOk=(idx===q.c),pts=0;
-  if(isOk){pts=Math.round(MAX_PTS-((MAX_PTS-MIN_PTS)*(used/TIME)));okN++;score+=pts;document.getElementById("o"+idx).classList.add("ok")}
-  else{errN++;document.getElementById("o"+idx).classList.add("nok");document.getElementById("o"+q.c).classList.add("ok")}
-  for(var j=0;j<btns.length;j++){if(j!==idx&&j!==q.c)btns[j].classList.add("off")}
-  ans.push({sel:idx,c:q.c,ok:isOk,to:false,pts:pts});feedback(isOk,pts);
+if(locked)return;locked=true;clearInterval(tmr);
+var used=(Date.now()-qStart)/1000;totalTime+=used;
+var q=qs[cur];var btns=document.querySelectorAll(".opt");for(var i=0;i<btns.length;i++)btns[i].disabled=true;
+var isOk=(idx===q.c),pts=0;
+if(isOk){pts=Math.round(MAX_PTS-((MAX_PTS-MIN_PTS)*(used/TIME)));okN++;score+=pts;document.getElementById("o"+idx).classList.add("ok")}
+else{errN++;document.getElementById("o"+idx).classList.add("nok");document.getElementById("o"+q.c).classList.add("ok")}
+for(var j=0;j<btns.length;j++){if(j!==idx&&j!==q.c)btns[j].classList.add("off")}
+ans.push({sel:idx,c:q.c,ok:isOk,to:false,pts:pts});
+feedback(isOk,pts);
 }
 
 function timeout(){
-  if(locked)return;locked=true;totalTime+=TIME;
-  var q=qs[cur];var btns=document.querySelectorAll(".opt");for(var i=0;i<btns.length;i++)btns[i].disabled=true;
-  document.getElementById("o"+q.c).classList.add("ok");
-  for(var j=0;j<btns.length;j++){if(j!==q.c)btns[j].classList.add("off")}
-  errN++;ans.push({sel:-1,c:q.c,ok:false,to:true,pts:0});feedback(null,0);
+if(locked)return;locked=true;totalTime+=TIME;
+var q=qs[cur];var btns=document.querySelectorAll(".opt");for(var i=0;i<btns.length;i++)btns[i].disabled=true;
+document.getElementById("o"+q.c).classList.add("ok");
+for(var j=0;j<btns.length;j++){if(j!==q.c)btns[j].classList.add("off")}
+errN++;ans.push({sel:-1,c:q.c,ok:false,to:true,pts:0});
+feedback(null,0);
 }
 
 function feedback(ok,pts){
-  var ov=document.getElementById("fbOv"),ico=document.getElementById("fbIco"),txt=document.getElementById("fbTxt"),pt=document.getElementById("fbPts");
-  if(ok===true){ico.textContent="✅";txt.textContent="Correto!";pt.textContent="+"+pts+" pts";pt.style.color="var(--ok)"}
-  else if(ok===false){ico.textContent="❌";txt.textContent="Incorreto!";pt.textContent="0 pts";pt.style.color="var(--red)"}
-  else{ico.textContent="⏰";txt.textContent="Tempo esgotado!";pt.textContent="0 pts";pt.style.color="#fbbf24"}
-  ov.classList.add("show");
-  setTimeout(function(){
-    cur++;
-    if(cur<NUM_Q){loadQ();setTimeout(function(){ov.classList.remove("show")},50)}
-    else{finishQuiz();ov.classList.remove("show")}
-  },1200);
+var ov=document.getElementById("fbOv");
+var ico=document.getElementById("fbIco");
+var txt=document.getElementById("fbTxt");
+var pt=document.getElementById("fbPts");
+if(ok===true){ico.textContent="✅";txt.textContent="Correto!";pt.textContent="+"+pts+" pts";pt.style.color="var(--ok)"}
+else if(ok===false){ico.textContent="❌";txt.textContent="Incorreto!";pt.textContent="0 pts";pt.style.color="var(--red)"}
+else{ico.textContent="⏰";txt.textContent="Tempo esgotado!";pt.textContent="0 pts";pt.style.color="#fbbf24"}
+ov.classList.add("show");
+setTimeout(function(){
+  cur++;
+  if(cur<NUM_Q){
+    loadQ();
+    setTimeout(function(){ov.classList.remove("show")},50);
+  } else {
+    showResult(isTest);
+    if(!isTest){sendResult(null)}
+    setTimeout(function(){ov.classList.remove("show")},50);
+  }
+},1200);
 }
 
-function finishQuiz(){if(isTest){showResult(true);return}sendResult(function(){showResult(false)})}
-
 function showResult(test){
-  goTo("scrResult");
-  document.getElementById("resPts").textContent=score.toLocaleString("pt-BR");
-  document.getElementById("resName").textContent=test?"🧪 Modo Teste":pName;
-  document.getElementById("resOk").textContent=okN;
-  document.getElementById("resErr").textContent=errN;
-  document.getElementById("resTime").textContent=Math.round(totalTime)+"s";
-  var pct=Math.round(okN/NUM_Q*100);
-  document.getElementById("resPct").textContent=pct+"% de aproveitamento";
-  var t=document.getElementById("resTitle");
-  if(pct>=90)t.textContent="🏆 Excelente!";else if(pct>=70)t.textContent="🔥 Muito Bem!";else if(pct>=50)t.textContent="💪 Bom Trabalho!";else t.textContent="📚 Continue Estudando!";
-  var info=document.getElementById("savedInfo");
-  if(test)info.innerHTML='<div class="saved-badge" style="background:rgba(251,191,36,.15);border-color:rgba(251,191,36,.3);color:#fbbf24">🧪 Teste — não registrado</div>';
-  else{info.innerHTML='<div class="saved-badge">✅ Resultado enviado ao ranking</div>';showToast("✅ Resultado registrado!")}
+goTo("scrResult");
+document.getElementById("resPts").textContent=score.toLocaleString("pt-BR");
+document.getElementById("resName").textContent=test?"🧪 Modo Teste":pName;
+document.getElementById("resOk").textContent=okN;
+document.getElementById("resErr").textContent=errN;
+document.getElementById("resTime").textContent=Math.round(totalTime)+"s";
+var pct=Math.round(okN/NUM_Q*100);
+document.getElementById("resPct").textContent=pct+"% de aproveitamento";
+var t=document.getElementById("resTitle");
+if(pct>=90)t.textContent="🏆 Excelente!";
+else if(pct>=70)t.textContent="🔥 Muito Bem!";
+else if(pct>=50)t.textContent="💪 Bom Trabalho!";
+else t.textContent="📚 Continue Estudando!";
+var info=document.getElementById("savedInfo");
+if(test){info.innerHTML='<div class="saved-badge" style="background:rgba(251,191,36,.15);border-color:rgba(251,191,36,.3);color:#fbbf24">🧪 Teste — não registrado</div>'}
+else{info.innerHTML='<div class="saved-badge">✅ Resultado enviado ao ranking</div>';showToast("✅ Resultado registrado!")}
 }
 
 function showReview(){
-  goTo("scrReview");var L=["A","B","C"];var list=document.getElementById("revList");list.innerHTML="";
-  for(var i=0;i<qs.length;i++){var q=qs[i],a=ans[i],bc="rnok",bt="Errou";
-    if(a.to){bc="rto";bt="Tempo"}else if(a.ok){bc="rok";bt="Acertou"}
-    var d=document.createElement("div");d.className="rev";
-    d.innerHTML='<div class="rev-hd"><span class="rev-n">Q'+(i+1)+" · "+(ICONS[q.b]||"")+" "+q.b+'</span><span class="rev-b '+bc+'">'+bt+'</span></div><div class="rev-q">'+q.q+'</div><div class="rev-a">Correta: <span>'+L[q.c]+") "+q.o[q.c]+"</span></div>";
-    list.appendChild(d)}
+goTo("scrReview");var L=["A","B","C"];var list=document.getElementById("revList");list.innerHTML="";
+for(var i=0;i<qs.length;i++){var q=qs[i],a=ans[i],bc="rnok",bt="Errou";
+if(a.to){bc="rto";bt="Tempo"}else if(a.ok){bc="rok";bt="Acertou"}
+var d=document.createElement("div");d.className="rev";
+d.innerHTML='<div class="rev-hd"><span class="rev-n">Q'+(i+1)+" · "+(ICONS[q.b]||"")+" "+q.b+'</span><span class="rev-b '+bc+'">'+bt+'</span></div><div class="rev-q">'+q.q+'</div><div class="rev-a">Correta: <span>'+L[q.c]+") "+q.o[q.c]+"</span></div>";
+list.appendChild(d)}
 }
 
 function admLogin(){var p=document.getElementById("admPass").value;var e=document.getElementById("errAdm");e.style.display="none";if(p===ADM_PASS){goTo("scrAdmin");showToast("✅ Login realizado!")}else{e.textContent="Senha incorreta.";e.style.display="block"}}
@@ -365,3 +381,4 @@ document.getElementById("admPass").addEventListener("keydown",function(e){if(e.k
 
 </body>
 </html>
+
