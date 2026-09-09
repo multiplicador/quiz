@@ -116,7 +116,8 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--dark);color:var(-
   <div class="pills"><span class="pill">📋 Política do Programa</span><span class="pill">📤 Envio de Evidências</span><span class="pill">🎯 Avaliação 360°</span></div>
   <div class="chips"><div class="chip"><div class="cv">10</div><div class="cl">Perguntas</div></div><div class="chip"><div class="cv">20s</div><div class="cl">Por Questão</div></div><div class="chip"><div class="cv">🏆</div><div class="cl">Ranking</div></div></div>
   <div class="field"><label>Seu nome</label><input type="text" id="inpName" placeholder="Nome completo" maxlength="40" autocomplete="off"></div>
-  <div class="field"><label>Seu e-mail</label><input type="email" id="inpEmail" placeholder="seuemail@exemplo.com" maxlength="60" autocomplete="off"><div class="err" id="errEmail"></div></div>
+  <div class="field"><label>Seu e-mail</label><input type="email" id="inpEmail" placeholder="seuemail@exemplo.com" maxlength="60" autocomplete="off"></div>
+  <div class="field"><label>WhatsApp</label><input type="tel" id="inpPhone" placeholder="(11) 99999-9999" maxlength="15" autocomplete="off"><div class="err" id="errPhone"></div></div>
   <button class="btn" id="btnStart" onclick="register()">Iniciar Quiz</button>
   <button class="ghost" onclick="goTo('scrAdmLogin')">⚙ Área Administrador</button>
 </div>
@@ -202,7 +203,25 @@ var ICONS={"Política do Programa":"📋","Envio de Evidências":"📤","Avalia�
 var TIME=20,MAX_PTS=1000,MIN_PTS=200,NUM_Q=10,ADM_PASS="ad2026";
 var qs=[],cur=0,score=0,okN=0,errN=0,tmr=null,tLeft=TIME,ans=[];
 var totalTime=0,qStart=0;
-var pName="",pEmail="",isTest=false,locked=false,rankingCache=[];
+var pName="",pEmail="",pPhone="",isTest=false,locked=false,rankingCache=[];
+
+function maskPhone(v){
+v=v.replace(/\D/g,"");
+if(v.length>11)v=v.substring(0,11);
+if(v.length>6)v="("+v.substring(0,2)+") "+v.substring(2,7)+"-"+v.substring(7);
+else if(v.length>2)v="("+v.substring(0,2)+") "+v.substring(2);
+else if(v.length>0)v="("+v;
+return v;
+}
+
+var phoneInput=document.getElementById("inpPhone");
+phoneInput.addEventListener("input",function(){
+var pos=this.selectionStart;
+var old=this.value.length;
+this.value=maskPhone(this.value);
+var diff=this.value.length-old;
+this.setSelectionRange(pos+diff,pos+diff);
+});
 
 function showToast(m){var t=document.getElementById("toast");t.textContent=m;t.classList.add("show");setTimeout(function(){t.classList.remove("show")},2500)}
 
@@ -227,7 +246,18 @@ if(d.status==="ok"&&d.data){var f=false;for(var i=0;i<d.data.length;i++){if(d.da
 }
 
 function sendResult(cb){
-fetch(API_URL,{method:"POST",headers:{"Content-Type":"text/plain"},body:JSON.stringify({name:pName,email:pEmail,score:score,ok:okN,err:errN,to:Math.round(totalTime)}),mode:"no-cors"}).then(function(){if(cb)cb(true)}).catch(function(){if(cb)cb(false)});
+fetch(API_URL,{method:"POST",headers:{"Content-Type":"text/plain"},body:JSON.stringify({name:pName,email:pEmail,phone:pPhone,score:score,ok:okN,err:errN,to:Math.round(totalTime)}),mode:"no-cors"}).then(function(){if(cb)cb(true)}).catch(function(){if(cb)cb(false)});
+}
+
+function sendAnswers(){
+var L=["A","B","C"];var payload=[];
+for(var i=0;i<qs.length;i++){
+var q=qs[i],a=ans[i];
+var resposta=a.to?"Tempo esgotado":L[a.sel]+" - "+q.o[a.sel];
+var correta=L[q.c]+" - "+q.o[q.c];
+payload.push({email:pEmail,phone:pPhone,question:q.q,block:q.b,answer:resposta,correct:correta,hit:a.ok});
+}
+fetch(API_URL,{method:"POST",headers:{"Content-Type":"text/plain"},body:JSON.stringify({type:"answers",answers:payload}),mode:"no-cors"}).catch(function(){});
 }
 
 function loadRanking(){
@@ -249,29 +279,32 @@ else{var md=["🥇","🥈","🥉"];rH='<table class="rtable"><thead><tr><th>#</t
 document.getElementById("rankHTML").innerHTML=rH;
 var pH="";
 if(n===0){pH='<div class="empty-msg">Nenhum participante.</div>'}
-else{pH='<table class="rtable"><thead><tr><th>Nome</th><th>E-mail</th><th>Pts</th><th>Data</th></tr></thead><tbody>';for(var p2=0;p2<n;p2++){pH+="<tr><td>"+ps[p2].name+'</td><td style="font-size:.68rem;color:var(--lgray)">'+ps[p2].email+'</td><td style="font-weight:700">'+ps[p2].score+'</td><td style="font-size:.68rem;color:var(--lgray)">'+(ps[p2].date||"-")+"</td></tr>"}pH+="</tbody></table>"}
+else{pH='<table class="rtable"><thead><tr><th>Nome</th><th>E-mail</th><th>WhatsApp</th><th>Pts</th></tr></thead><tbody>';for(var p2=0;p2<n;p2++){pH+="<tr><td>"+ps[p2].name+'</td><td style="font-size:.68rem;color:var(--lgray)">'+ps[p2].email+'</td><td style="font-size:.68rem;color:var(--lgray)">'+(ps[p2].phone||"-")+'</td><td style="font-weight:700">'+ps[p2].score+"</td></tr>"}pH+="</tbody></table>"}
 document.getElementById("partHTML").innerHTML=pH;
 document.getElementById("statsHTML").innerHTML='<div class="adm-stats"><div class="as"><div class="asv">'+n+'</div><div class="asl">Participantes</div></div><div class="as"><div class="asv">'+avgS+'</div><div class="asl">Média Pts</div></div><div class="as"><div class="asv">'+avgA+'%</div><div class="asl">Média Acertos</div></div></div>';
 }
 
 function exportCSV(){
 var ps=rankingCache;if(ps.length===0){alert("Nenhum dado.");return}
-var c="\uFEFFPos,Nome,Email,Pontos,Acertos,Erros,Tempo,Data\n";
-for(var i=0;i<ps.length;i++)c+=(i+1)+',"'+ps[i].name+'","'+ps[i].email+'",'+ps[i].score+","+ps[i].ok+","+ps[i].err+","+ps[i].to+',"'+(ps[i].date||"")+"\"\n";
+var c="\uFEFFPos,Nome,Email,WhatsApp,Pontos,Acertos,Erros,Tempo,Data\n";
+for(var i=0;i<ps.length;i++)c+=(i+1)+',"'+ps[i].name+'","'+ps[i].email+'","'+(ps[i].phone||"")+'",'+ps[i].score+","+ps[i].ok+","+ps[i].err+","+ps[i].to+',"'+(ps[i].date||"")+"\"\n";
 var b=new Blob([c],{type:"text/csv;charset=utf-8;"});var u=URL.createObjectURL(b);var a=document.createElement("a");a.href=u;a.download="ranking_quiz.csv";document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(u);
 }
 
 function register(){
 var name=document.getElementById("inpName").value.trim();
 var email=document.getElementById("inpEmail").value.trim();
-var err=document.getElementById("errEmail");var btn=document.getElementById("btnStart");
+var phone=document.getElementById("inpPhone").value.trim();
+var err=document.getElementById("errPhone");var btn=document.getElementById("btnStart");
 err.style.display="none";
 if(!name){err.textContent="Informe seu nome.";err.style.display="block";return}
 if(!email||email.indexOf("@")<0||email.indexOf(".")<0){err.textContent="E-mail inválido.";err.style.display="block";return}
+var phoneDigits=phone.replace(/\D/g,"");
+if(phoneDigits.length<10||phoneDigits.length>11){err.textContent="WhatsApp inválido. Use DDD + número.";err.style.display="block";return}
 btn.disabled=true;btn.textContent="Verificando...";
 checkEmail(email,function(exists){
 if(exists){err.textContent="⚠️ Este e-mail já participou.";err.style.display="block";btn.disabled=false;btn.textContent="Iniciar Quiz";return}
-pName=name;pEmail=email;isTest=false;btn.disabled=false;btn.textContent="Iniciar Quiz";startGame();
+pName=name;pEmail=email;pPhone=phone;isTest=false;btn.disabled=false;btn.textContent="Iniciar Quiz";startGame();
 });
 }
 
@@ -338,7 +371,7 @@ setTimeout(function(){
     setTimeout(function(){ov.classList.remove("show")},50);
   } else {
     showResult(isTest);
-    if(!isTest){sendResult(null)}
+    if(!isTest){sendResult(null);sendAnswers()}
     setTimeout(function(){ov.classList.remove("show")},50);
   }
 },1200);
@@ -373,9 +406,9 @@ list.appendChild(d)}
 }
 
 function admLogin(){var p=document.getElementById("admPass").value;var e=document.getElementById("errAdm");e.style.display="none";if(p===ADM_PASS){goTo("scrAdmin");showToast("✅ Login realizado!")}else{e.textContent="Senha incorreta.";e.style.display="block"}}
-function admTest(){isTest=true;pName="Admin (Teste)";pEmail="admin@teste";startGame()}
+function admTest(){isTest=true;pName="Admin (Teste)";pEmail="admin@teste";pPhone="(00) 00000-0000";startGame()}
 function admTab(btn,id){var tabs=document.querySelectorAll(".adm-tab");for(var i=0;i<tabs.length;i++)tabs[i].classList.remove("active");var secs=document.querySelectorAll(".adm-sec");for(var j=0;j<secs.length;j++)secs[j].classList.remove("active");btn.classList.add("active");document.getElementById(id).classList.add("active")}
-document.getElementById("inpEmail").addEventListener("keydown",function(e){if(e.key==="Enter")register()});
+document.getElementById("inpPhone").addEventListener("keydown",function(e){if(e.key==="Enter")register()});
 document.getElementById("admPass").addEventListener("keydown",function(e){if(e.key==="Enter")admLogin()});
 </script>
 
