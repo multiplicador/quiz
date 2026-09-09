@@ -7,22 +7,14 @@
 <title>Quiz Multiplicadores | AD Summit 2026</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
-:root {
-  --dark:#231F20;--gray:#414042;--lgray:#DCDDDE;
-  --red:#FF0000;--mred:#D03025;--dred:#7A1315;--white:#FFFFFF;
-  --ok:#22c55e;--ok-bg:rgba(34,197,94,.15);
-  --err-bg:rgba(255,0,0,.12);
-}
+:root{--dark:#231F20;--gray:#414042;--lgray:#DCDDDE;--red:#FF0000;--mred:#D03025;--dred:#7A1315;--white:#FFFFFF;--ok:#22c55e;--ok-bg:rgba(34,197,94,.15);--err-bg:rgba(255,0,0,.12)}
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Inter',system-ui,sans-serif;background:var(--dark);color:var(--white);min-height:100vh}
-.hide{display:none!important}
-.center{text-align:center}
-.glow{position:fixed;inset:0;pointer-events:none;z-index:0;
-  background:radial-gradient(ellipse at 25% 40%,rgba(208,48,37,.12) 0%,transparent 55%),
-             radial-gradient(ellipse at 75% 60%,rgba(122,19,21,.1) 0%,transparent 55%)}
+.glow{position:fixed;inset:0;pointer-events:none;z-index:0;background:radial-gradient(ellipse at 25% 40%,rgba(208,48,37,.12) 0%,transparent 55%),radial-gradient(ellipse at 75% 60%,rgba(122,19,21,.1) 0%,transparent 55%)}
 .wrap{position:relative;z-index:1;max-width:560px;margin:0 auto;padding:1.5rem;min-height:100vh;display:flex;flex-direction:column;justify-content:center}
 .screen{display:none;flex-direction:column;align-items:center;gap:1.25rem}
 .screen.on{display:flex}
+.center{text-align:center}
 .badge{display:inline-block;background:var(--mred);color:var(--white);font-size:.7rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:.4rem 1.1rem;border-radius:20px}
 .field{width:100%;max-width:400px;text-align:left}
 .field label{display:block;font-size:.7rem;font-weight:700;color:var(--lgray);text-transform:uppercase;letter-spacing:.5px;margin-bottom:.4rem}
@@ -47,8 +39,6 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--dark);color:var(-
 .chip{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:.7rem 1.2rem;text-align:center;min-width:85px}
 .chip .cv{font-size:1.4rem;font-weight:800;color:var(--mred)}
 .chip .cl{font-size:.6rem;color:var(--lgray);text-transform:uppercase;letter-spacing:1px;margin-top:.15rem}
-
-/* ── progress ── */
 .prog-wrap{width:100%}
 .prog-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem}
 .prog-top span{font-size:.75rem;color:var(--lgray);font-weight:600}
@@ -60,8 +50,6 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--dark);color:var(-
 .dot.dok{background:var(--ok)}
 .dot.derr{background:var(--red)}
 .dot.dto{background:var(--gray)}
-
-/* ── question ── */
 .q-head{width:100%;display:flex;justify-content:space-between;align-items:center}
 .block-tag{font-size:.68rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--mred);background:rgba(208,48,37,.12);padding:.3rem .8rem;border-radius:8px}
 .q-num{font-size:.8rem;color:var(--lgray);font-weight:600}
@@ -74,8 +62,6 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--dark);color:var(-
 .timer-num.td{color:var(--red);animation:tpulse .5s infinite}
 .q-card{width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:1.5rem 1.2rem;text-align:center}
 .q-card h2{font-size:clamp(1rem,3vw,1.25rem);font-weight:700;line-height:1.4}
-
-/* ── options ── */
 .opts{width:100%;display:flex;flex-direction:column;gap:.6rem}
 .opt{width:100%;padding:1rem 1.1rem;border-radius:14px;border:2px solid rgba(255,255,255,.08);background:rgba(255,255,255,.04);color:var(--white);font-size:.9rem;font-weight:500;cursor:pointer;text-align:left;display:flex;align-items:center;gap:.8rem;font-family:inherit;transition:all .2s}
 .opt:hover:not(:disabled){border-color:var(--mred);background:rgba(208,48,37,.08);transform:translateX(4px)}
@@ -90,8 +76,6 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--dark);color:var(-
 @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
 .opt.ok{animation:pop .35s}
 .opt.nok{animation:shake .35s}
-
-/* ── feedback overlay ── */
 .fb-ov{display:none;position:fixed;inset:0;z-index:200;background:rgba(35,31,32,.88);justify-content:center;align-items:center}
 .fb-ov.show{display:flex}
 .fb-box{text-align:center;animation:fbIn .3s ease-out}
@@ -99,13 +83,8 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--dark);color:var(-
 .fb-ico{font-size:3.5rem;margin-bottom:.5rem}
 .fb-txt{font-size:1.3rem;font-weight:700}
 .fb-pts{font-size:.9rem;margin-top:.3rem}
-
-/* ── toast ── */
 .toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(100px);background:var(--ok);color:var(--white);padding:.7rem 1.5rem;border-radius:12px;font-size:.85rem;font-weight:700;z-index:300;transition:transform .4s ease;box-shadow:0 4px 20px rgba(0,0,0,.4)}
 .toast.show{transform:translateX(-50%) translateY(0)}
-.toast.error{background:var(--red)}
-
-/* ── result ── */
 .score-ring{width:150px;height:150px;border-radius:50%;border:5px solid rgba(208,48,37,.25);display:flex;flex-direction:column;align-items:center;justify-content:center;margin:0 auto .8rem}
 .score-ring .sv{font-size:2.8rem;font-weight:900;color:var(--red)}
 .score-ring .sl{font-size:.65rem;color:var(--lgray);text-transform:uppercase;letter-spacing:1px}
@@ -120,8 +99,6 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--dark);color:var(-
 .thanks h3{font-size:1.1rem;margin-bottom:.3rem}
 .thanks p{font-size:.82rem;color:var(--lgray);line-height:1.5}
 .saved-badge{display:inline-flex;align-items:center;gap:.4rem;background:rgba(34,197,94,.15);border:1px solid rgba(34,197,94,.3);color:var(--ok);padding:.3rem .8rem;border-radius:8px;font-size:.72rem;font-weight:700;margin-top:.5rem}
-
-/* ── review ── */
 .rev-list{width:100%;display:flex;flex-direction:column;gap:.5rem}
 .rev{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:.8rem 1rem;text-align:left}
 .rev-hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:.3rem}
@@ -133,8 +110,6 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--dark);color:var(-
 .rev-q{font-size:.82rem;font-weight:600;margin-bottom:.2rem}
 .rev-a{font-size:.75rem;color:var(--lgray)}
 .rev-a span{color:var(--ok);font-weight:600}
-
-/* ── admin ── */
 .adm-tabs{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1rem}
 .adm-tab{padding:.6rem 1.2rem;border-radius:10px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);color:var(--lgray);font-size:.8rem;font-weight:600;cursor:pointer;font-family:inherit;transition:all .15s}
 .adm-tab.active{background:var(--mred);color:var(--white);border-color:var(--mred)}
@@ -150,172 +125,139 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--dark);color:var(-
 .as .asv{font-size:1.6rem;font-weight:800;color:var(--mred)}
 .as .asl{font-size:.6rem;color:var(--lgray);text-transform:uppercase;letter-spacing:.5px;margin-top:.15rem}
 .empty-msg{text-align:center;padding:2rem;color:var(--lgray);font-size:.85rem}
-.storage-info{font-size:.68rem;color:rgba(255,255,255,.25);text-align:center;margin-top:.5rem}
-
-@media(max-width:500px){
-  .wrap{padding:1rem}
-  .opt{padding:.8rem .9rem;font-size:.82rem}
-  .adm-stats{grid-template-columns:1fr}
-  .chips{gap:.4rem}
-  .chip{min-width:75px;padding:.5rem .8rem}
-}
+@media(max-width:500px){.wrap{padding:1rem}.opt{padding:.8rem .9rem;font-size:.82rem}.adm-stats{grid-template-columns:1fr}.chips{gap:.4rem}.chip{min-width:75px;padding:.5rem .8rem}}
 </style>
 </head>
 <body>
 <div class="glow"></div>
-
-<div class="fb-ov" id="fbOv">
-  <div class="fb-box">
-    <div class="fb-ico" id="fbIco"></div>
-    <div class="fb-txt" id="fbTxt"></div>
-    <div class="fb-pts" id="fbPts"></div>
-  </div>
-</div>
-
+<div class="fb-ov" id="fbOv"><div class="fb-box"><div class="fb-ico" id="fbIco"></div><div class="fb-txt" id="fbTxt"></div><div class="fb-pts" id="fbPts"></div></div></div>
 <div class="toast" id="toast"></div>
 
 <div class="wrap">
 
-  <!-- ═══ CADASTRO ═══ -->
-  <div class="screen on" id="scrStart">
-    <div class="center">
-      <div class="badge">AD Summit 2026</div>
-      <h1 class="title" style="margin-top:.7rem">Quiz<br><span class="hl">Multiplicadores</span></h1>
-      <p class="sub" style="margin-top:.4rem">Teste seus conhecimentos sobre Política, Evidências e Avaliação 360°</p>
-    </div>
-    <div class="pills">
-      <span class="pill">📋 Política do Programa</span>
-      <span class="pill">📤 Envio de Evidências</span>
-      <span class="pill">🎯 Avaliação 360°</span>
-    </div>
-    <div class="chips">
-      <div class="chip"><div class="cv">10</div><div class="cl">Perguntas</div></div>
-      <div class="chip"><div class="cv">20s</div><div class="cl">Por Questão</div></div>
-      <div class="chip"><div class="cv">🏆</div><div class="cl">Ranking</div></div>
-    </div>
-    <div class="field">
-      <label>Seu nome</label>
-      <input type="text" id="inpName" placeholder="Nome completo" maxlength="40" autocomplete="off">
-    </div>
-    <div class="field">
-      <label>Seu e-mail</label>
-      <input type="email" id="inpEmail" placeholder="seuemail@exemplo.com" maxlength="60" autocomplete="off">
-      <div class="err" id="errEmail"></div>
-    </div>
-    <button class="btn" id="btnStart" onclick="register()">Iniciar Quiz</button>
-    <button class="ghost" onclick="goTo('scrAdmLogin')">⚙ Área Administrador</button>
+<!-- CADASTRO -->
+<div class="screen on" id="scrStart">
+  <div class="center">
+    <div class="badge">AD Summit 2026</div>
+    <h1 class="title" style="margin-top:.7rem">Quiz<br><span class="hl">Multiplicadores</span></h1>
+    <p class="sub" style="margin-top:.4rem">Teste seus conhecimentos sobre Política, Evidências e Avaliação 360°</p>
   </div>
+  <div class="pills">
+    <span class="pill">📋 Política do Programa</span>
+    <span class="pill">📤 Envio de Evidências</span>
+    <span class="pill">🎯 Avaliação 360°</span>
+  </div>
+  <div class="chips">
+    <div class="chip"><div class="cv">10</div><div class="cl">Perguntas</div></div>
+    <div class="chip"><div class="cv">20s</div><div class="cl">Por Questão</div></div>
+    <div class="chip"><div class="cv">🏆</div><div class="cl">Ranking</div></div>
+  </div>
+  <div class="field">
+    <label>Seu nome</label>
+    <input type="text" id="inpName" placeholder="Nome completo" maxlength="40" autocomplete="off">
+  </div>
+  <div class="field">
+    <label>Seu e-mail</label>
+    <input type="email" id="inpEmail" placeholder="seuemail@exemplo.com" maxlength="60" autocomplete="off">
+    <div class="err" id="errEmail"></div>
+  </div>
+  <button class="btn" onclick="register()">Iniciar Quiz</button>
+  <button class="ghost" onclick="goTo('scrAdmLogin')">⚙ Área Administrador</button>
+</div>
 
-  <!-- ═══ LOGIN ADMIN ═══ -->
-  <div class="screen" id="scrAdmLogin">
-    <div class="center">
-      <div class="badge">Administrador</div>
-      <h1 class="title" style="margin-top:.7rem;font-size:1.8rem">Área Restrita</h1>
-      <p class="sub">Acesso exclusivo para gestão e testes</p>
-    </div>
-    <div class="field">
-      <label>Senha</label>
-      <input type="password" id="admPass" placeholder="Digite a senha" autocomplete="off">
-      <div class="err" id="errAdm"></div>
-    </div>
-    <button class="btn" onclick="admLogin()">Entrar</button>
-    <button class="ghost" onclick="goTo('scrStart')">← Voltar ao Quiz</button>
+<!-- LOGIN ADMIN -->
+<div class="screen" id="scrAdmLogin">
+  <div class="center">
+    <div class="badge">Administrador</div>
+    <h1 class="title" style="margin-top:.7rem;font-size:1.8rem">Área Restrita</h1>
+    <p class="sub">Acesso exclusivo para gestão e testes</p>
   </div>
+  <div class="field">
+    <label>Senha</label>
+    <input type="password" id="admPass" placeholder="Digite a senha" autocomplete="off">
+    <div class="err" id="errAdm"></div>
+  </div>
+  <button class="btn" onclick="admLogin()">Entrar</button>
+  <button class="ghost" onclick="goTo('scrStart')">← Voltar ao Quiz</button>
+</div>
 
-  <!-- ═══ PAINEL ADMIN ═══ -->
-  <div class="screen" id="scrAdmin">
-    <div class="center">
-      <div class="badge">Painel Admin</div>
-      <h1 class="title" style="margin-top:.7rem;font-size:1.6rem">Gestão do Quiz</h1>
-    </div>
-    <div style="width:100%">
-      <div class="adm-tabs">
-        <button class="adm-tab active" onclick="admTab(this,'secRank')">🏆 Ranking</button>
-        <button class="adm-tab" onclick="admTab(this,'secPart')">👥 Participantes</button>
-        <button class="adm-tab" onclick="admTab(this,'secStats')">📊 Estatísticas</button>
-      </div>
-      <div class="adm-sec active" id="secRank"><div id="rankHTML"></div></div>
-      <div class="adm-sec" id="secPart"><div id="partHTML"></div></div>
-      <div class="adm-sec" id="secStats"><div id="statsHTML"></div></div>
-    </div>
-    <div class="actions">
-      <button class="btn" onclick="admTest()">🧪 Testar Quiz</button>
-      <button class="btn2" onclick="renderAdm();showToast('🔄 Dados atualizados!')">🔄 Atualizar</button>
-      <button class="btn2" onclick="exportCSV()">📥 Exportar CSV</button>
-      <button class="btn2" onclick="clearData()">🗑 Limpar Dados</button>
-    </div>
-    <button class="ghost" onclick="goTo('scrStart')">← Sair</button>
+<!-- PAINEL ADMIN -->
+<div class="screen" id="scrAdmin">
+  <div class="center">
+    <div class="badge">Painel Admin</div>
+    <h1 class="title" style="margin-top:.7rem;font-size:1.6rem">Gestão do Quiz</h1>
   </div>
+  <div style="width:100%">
+    <div class="adm-tabs">
+      <button class="adm-tab active" onclick="admTab(this,'secRank')">🏆 Ranking</button>
+      <button class="adm-tab" onclick="admTab(this,'secPart')">👥 Participantes</button>
+      <button class="adm-tab" onclick="admTab(this,'secStats')">📊 Estatísticas</button>
+    </div>
+    <div class="adm-sec active" id="secRank"><div id="rankHTML"></div></div>
+    <div class="adm-sec" id="secPart"><div id="partHTML"></div></div>
+    <div class="adm-sec" id="secStats"><div id="statsHTML"></div></div>
+  </div>
+  <div class="actions">
+    <button class="btn" onclick="admTest()">🧪 Testar Quiz</button>
+    <button class="btn2" onclick="renderAdm();showToast('Dados atualizados!')">🔄 Atualizar</button>
+    <button class="btn2" onclick="exportCSV()">📥 Exportar CSV</button>
+    <button class="btn2" onclick="clearData()">🗑 Limpar Dados</button>
+  </div>
+  <button class="ghost" onclick="goTo('scrStart')">← Sair</button>
+</div>
 
-  <!-- ═══ QUIZ ═══ -->
-  <div class="screen" id="scrQuiz">
-    <div class="prog-wrap">
-      <div class="prog-top">
-        <span id="progLabel">Pergunta 1 de 10</span>
-        <span id="progScore">0 pts</span>
-      </div>
-      <div class="prog-track"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
-      <div class="dots" id="dots"></div>
-    </div>
-    <div class="q-head">
-      <div class="block-tag" id="bTag"></div>
-      <div class="q-num" id="qNum"></div>
-    </div>
-    <div class="timer-track"><div class="timer-fill" id="tBar"></div></div>
-    <div class="timer-num" id="tNum">20</div>
-    <div class="q-card"><h2 id="qTxt"></h2></div>
-    <div class="opts" id="optsEl"></div>
+<!-- QUIZ -->
+<div class="screen" id="scrQuiz">
+  <div class="prog-wrap">
+    <div class="prog-top"><span id="progLabel">Pergunta 1 de 10</span><span id="progScore">0 pts</span></div>
+    <div class="prog-track"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
+    <div class="dots" id="dots"></div>
   </div>
+  <div class="q-head"><div class="block-tag" id="bTag"></div><div class="q-num" id="qNum"></div></div>
+  <div class="timer-track"><div class="timer-fill" id="tBar"></div></div>
+  <div class="timer-num" id="tNum">20</div>
+  <div class="q-card"><h2 id="qTxt"></h2></div>
+  <div class="opts" id="optsEl"></div>
+</div>
 
-  <!-- ═══ RESULTADO ═══ -->
-  <div class="screen" id="scrResult">
-    <div class="center">
-      <div class="badge">Resultado Final</div>
-      <h1 class="title" id="resTitle" style="margin-top:.7rem;font-size:2rem">Parabéns!</h1>
-    </div>
-    <div class="q-card" style="padding:1.8rem 1.2rem">
-      <div class="score-ring">
-        <div class="sv" id="resPts">0</div>
-        <div class="sl">Pontos</div>
-      </div>
-      <div id="resName" style="font-size:1.1rem;font-weight:700;margin-bottom:.2rem"></div>
-      <div id="resPct" style="color:var(--lgray);font-size:.85rem"></div>
-      <div id="savedInfo"></div>
-      <div class="rgrid">
-        <div class="rg-item green"><div class="rv" id="resOk">0</div><div class="rl">Acertos</div></div>
-        <div class="rg-item red"><div class="rv" id="resErr">0</div><div class="rl">Erros</div></div>
-        <div class="rg-item yel"><div class="rv" id="resTo">0</div><div class="rl">Tempo</div></div>
-      </div>
-    </div>
-    <div class="thanks">
-      <h3>🎉 Obrigado pela participação!</h3>
-      <p>Seu resultado foi registrado no ranking do AD Summit. Continue aprimorando seus conhecimentos como Multiplicador Ademicon!</p>
-    </div>
-    <div class="actions">
-      <button class="btn2" onclick="showReview()">📋 Ver Gabarito</button>
+<!-- RESULTADO -->
+<div class="screen" id="scrResult">
+  <div class="center">
+    <div class="badge">Resultado Final</div>
+    <h1 class="title" id="resTitle" style="margin-top:.7rem;font-size:2rem"></h1>
+  </div>
+  <div class="q-card" style="padding:1.8rem 1.2rem">
+    <div class="score-ring"><div class="sv" id="resPts">0</div><div class="sl">Pontos</div></div>
+    <div id="resName" style="font-size:1.1rem;font-weight:700;margin-bottom:.2rem"></div>
+    <div id="resPct" style="color:var(--lgray);font-size:.85rem"></div>
+    <div id="savedInfo"></div>
+    <div class="rgrid">
+      <div class="rg-item green"><div class="rv" id="resOk">0</div><div class="rl">Acertos</div></div>
+      <div class="rg-item red"><div class="rv" id="resErr">0</div><div class="rl">Erros</div></div>
+      <div class="rg-item yel"><div class="rv" id="resTo">0</div><div class="rl">Tempo</div></div>
     </div>
   </div>
+  <div class="thanks"><h3>🎉 Obrigado pela participação!</h3><p>Seu resultado foi registrado no ranking do AD Summit!</p></div>
+  <div class="actions"><button class="btn2" onclick="showReview()">📋 Ver Gabarito</button></div>
+</div>
 
-  <!-- ═══ GABARITO ═══ -->
-  <div class="screen" id="scrReview">
-    <div class="center">
-      <div class="badge">Gabarito</div>
-      <h1 class="title" style="margin-top:.7rem;font-size:1.6rem">Revisão</h1>
-    </div>
-    <div class="rev-list" id="revList"></div>
-    <div class="actions">
-      <button class="btn2" onclick="goTo('scrResult')">← Voltar</button>
-    </div>
+<!-- GABARITO -->
+<div class="screen" id="scrReview">
+  <div class="center">
+    <div class="badge">Gabarito</div>
+    <h1 class="title" style="margin-top:.7rem;font-size:1.6rem">Revisão</h1>
   </div>
+  <div class="rev-list" id="revList"></div>
+  <div class="actions"><button class="btn2" onclick="goTo('scrResult')">← Voltar</button></div>
+</div>
 
 </div>
 
 <script>
-// ══════════════════════════════════════════════
-// BANCO DE 30 PERGUNTAS
-// ══════════════════════════════════════════════
+/* ══════════════════════════════════════
+   BANCO DE 30 PERGUNTAS
+   ══════════════════════════════════════ */
 var BANK = [
-  // ── Política do Programa (10) ──
   {b:"Política do Programa",q:"O Multiplicador deve ser exclusivamente de qual área?",o:["Área comercial","Área administrativa","Área financeira"],c:1},
   {b:"Política do Programa",q:"Qual a nota mínima para concluir a formação de Multiplicador?",o:["60 pontos","70 pontos","80 pontos"],c:1},
   {b:"Política do Programa",q:"Se não atingir a nota mínima, em quantos dias pode fazer recuperação?",o:["5 dias","10 dias","15 dias"],c:1},
@@ -326,8 +268,6 @@ var BANK = [
   {b:"Política do Programa",q:"Unidades com mais de 80 consultores precisam de quantos Multiplicadores?",o:["1 Multiplicador","2 Multiplicadores","3 Multiplicadores"],c:1},
   {b:"Política do Programa",q:"Nos primeiros 12 meses de uma nova Unidade, o Multiplicador é:",o:["Obrigatório","Opcional","Proibido"],c:1},
   {b:"Política do Programa",q:"Help Desks do time Comercial contam para o critério do Multiplicador?",o:["Sim, todos","Apenas os de Políticas","Não são considerados"],c:2},
-
-  // ── Envio de Evidências (10) ──
   {b:"Envio de Evidências",q:"Por qual ferramenta as evidências devem ser enviadas?",o:["E-mail para T&D","Formulário do Pipefy","WhatsApp do Suporte"],c:1},
   {b:"Envio de Evidências",q:"Qual a duração mínima do vídeo de evidência?",o:["30 segundos","1 minuto","2 minutos"],c:1},
   {b:"Envio de Evidências",q:"Qual a duração mínima de um treinamento para ser válido?",o:["15 minutos","20 minutos","30 minutos"],c:2},
@@ -338,8 +278,488 @@ var BANK = [
   {b:"Envio de Evidências",q:"Qual o mínimo de respondentes na pesquisa NPS?",o:["3 respondentes","5 respondentes","8 respondentes"],c:1},
   {b:"Envio de Evidências",q:"Treinamentos em dias de fechamento (dia 15 e último dia) são aceitos?",o:["Sim, sem restrições","Apenas com autorização","Não são aceitos"],c:2},
   {b:"Envio de Evidências",q:"Onde fica o formulário de evidências do Multiplicador?",o:["Site da Ademicon","Biblioteca na UCA (Bumerangue)","Grupo do WhatsApp"],c:1},
-
-  // ── Avaliação 360° (10) ──
   {b:"Avaliação 360°",q:"Qual o peso do Multiplicador na Avaliação 360°?",o:["10%","5%","2,5%"],c:1},
   {b:"Avaliação 360°",q:"Qual o peso do pilar Comercial na Avaliação 360°?",o:["35%","45%","55%"],c:2},
-  {b:"Avaliação 360°",q:"Para Rating A, qual pontuação é necess
+  {b:"Avaliação 360°",q:"Para Rating A, qual pontuação é necessária?",o:["80 a 100 pontos","85 a 100 pontos","90 a 100 pontos"],c:2},
+  {b:"Avaliação 360°",q:"Qual o peso do pilar Gestão e Padronização?",o:["25%","35%","45%"],c:0},
+  {b:"Avaliação 360°",q:"Qual o peso do pilar Treinamento e Desenvolvimento?",o:["5%","10%","15%"],c:1},
+  {b:"Avaliação 360°",q:"Qual o percentual mínimo de cotas com Seguro Prestamista?",o:["1%","2%","5%"],c:0},
+  {b:"Avaliação 360°",q:"No Score do Consultor, qual a média simples mínima?",o:["350 pontos","425 pontos","500 pontos"],c:0},
+  {b:"Avaliação 360°",q:"Qual nota mínima de NPS (Visão Autorizados) para pontuar?",o:["7,0","8,0","9,0"],c:0},
+  {b:"Avaliação 360°",q:"Quantos Reducing Points por 2 notificações gravíssimas?",o:["3 pontos","6 pontos","10 pontos"],c:0},
+  {b:"Avaliação 360°",q:"Novas unidades são avaliadas na 360° a partir de quando?",o:["Imediatamente","No 2° trimestre subsequente","Após 1 ano"],c:1}
+];
+
+var ICONS = {"Política do Programa":"📋","Envio de Evidências":"📤","Avaliação 360°":"🎯"};
+var TIME = 20;
+var MAX_PTS = 1000;
+var MIN_PTS = 200;
+var NUM_Q = 10;
+var ADM_PASS = "ad2026";
+
+var qs = [];
+var cur = 0;
+var score = 0;
+var okN = 0;
+var errN = 0;
+var toN = 0;
+var tmr = null;
+var tLeft = TIME;
+var ans = [];
+var pName = "";
+var pEmail = "";
+var isTest = false;
+var locked = false;
+
+/* ── STORAGE ── */
+function getP() {
+  try { return JSON.parse(localStorage.getItem("admquiz_p") || "[]"); }
+  catch (e) { return []; }
+}
+
+function saveP(arr) {
+  try { localStorage.setItem("admquiz_p", JSON.stringify(arr)); return true; }
+  catch (e) { return false; }
+}
+
+function emailUsed(em) {
+  var list = getP();
+  var lower = em.toLowerCase();
+  for (var i = 0; i < list.length; i++) {
+    if (list[i].email.toLowerCase() === lower) return true;
+  }
+  return false;
+}
+
+function saveResult() {
+  if (isTest) return true;
+  var ps = getP();
+  var entry = {
+    name: pName,
+    email: pEmail,
+    score: score,
+    ok: okN,
+    err: errN,
+    to: toN,
+    total: NUM_Q,
+    date: new Date().toISOString()
+  };
+  ps.push(entry);
+  var ok = saveP(ps);
+  /* Verifica se salvou */
+  if (ok) {
+    var check = getP();
+    var found = false;
+    for (var i = 0; i < check.length; i++) {
+      if (check[i].email === pEmail && check[i].date === entry.date) { found = true; break; }
+    }
+    return found;
+  }
+  return false;
+}
+
+/* ── TOAST ── */
+function showToast(msg) {
+  var t = document.getElementById("toast");
+  t.textContent = msg;
+  t.classList.add("show");
+  setTimeout(function() { t.classList.remove("show"); }, 2500);
+}
+
+/* ── NAV ── */
+function goTo(id) {
+  var screens = document.querySelectorAll(".screen");
+  for (var i = 0; i < screens.length; i++) screens[i].classList.remove("on");
+  document.getElementById(id).classList.add("on");
+  window.scrollTo({ top: 0, behavior: "smooth" });
+  if (id === "scrAdmin") renderAdm();
+}
+
+/* ── SHUFFLE ── */
+function shuffle(arr) {
+  var a = arr.slice();
+  for (var i = a.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var temp = a[i]; a[i] = a[j]; a[j] = temp;
+  }
+  return a;
+}
+
+function pickQuestions() {
+  var byB = {};
+  for (var i = 0; i < BANK.length; i++) {
+    var q = BANK[i];
+    if (!byB[q.b]) byB[q.b] = [];
+    byB[q.b].push(q);
+  }
+  var sel = [];
+  var blocks = Object.keys(byB);
+  for (var b = 0; b < blocks.length; b++) {
+    var s = shuffle(byB[blocks[b]]);
+    sel.push(s[0], s[1], s[2]);
+  }
+  var usedQ = {};
+  for (var k = 0; k < sel.length; k++) usedQ[sel[k].q] = true;
+  var rem = [];
+  for (var m = 0; m < BANK.length; m++) {
+    if (!usedQ[BANK[m].q]) rem.push(BANK[m]);
+  }
+  var extra = shuffle(rem);
+  if (extra.length > 0) sel.push(extra[0]);
+  return shuffle(sel).slice(0, NUM_Q);
+}
+
+/* ── REGISTER ── */
+function register() {
+  var name = document.getElementById("inpName").value.trim();
+  var email = document.getElementById("inpEmail").value.trim();
+  var errEl = document.getElementById("errEmail");
+  errEl.style.display = "none";
+
+  if (!name) { errEl.textContent = "Informe seu nome."; errEl.style.display = "block"; return; }
+  if (!email || email.indexOf("@") < 0 || email.indexOf(".") < 0) {
+    errEl.textContent = "E-mail inválido."; errEl.style.display = "block"; return;
+  }
+  if (emailUsed(email)) {
+    errEl.textContent = "⚠️ Este e-mail já participou. Apenas 1 participação por e-mail.";
+    errEl.style.display = "block"; return;
+  }
+
+  pName = name;
+  pEmail = email;
+  isTest = false;
+  startGame();
+}
+
+/* ── START ── */
+function startGame() {
+  qs = pickQuestions();
+  cur = 0; score = 0; okN = 0; errN = 0; toN = 0; ans = []; locked = false;
+  initDots();
+  goTo("scrQuiz");
+  loadQ();
+}
+
+/* ── DOTS ── */
+function initDots() {
+  var c = document.getElementById("dots"); c.innerHTML = "";
+  for (var i = 0; i < NUM_Q; i++) {
+    var d = document.createElement("div");
+    d.className = "dot" + (i === 0 ? " now" : "");
+    d.id = "d" + i;
+    c.appendChild(d);
+  }
+}
+
+function updateProg() {
+  document.getElementById("progFill").style.width = (cur / NUM_Q * 100) + "%";
+  document.getElementById("progLabel").textContent = "Pergunta " + (cur + 1) + " de " + NUM_Q;
+  document.getElementById("progScore").textContent = score + " pts";
+  for (var i = 0; i < NUM_Q; i++) {
+    var d = document.getElementById("d" + i);
+    if (!d) continue;
+    d.className = "dot";
+    if (i === cur) d.classList.add("now");
+    else if (i < cur) {
+      var a = ans[i];
+      if (a.to) d.classList.add("dto");
+      else if (a.ok) d.classList.add("dok");
+      else d.classList.add("derr");
+    }
+  }
+}
+
+/* ── LOAD QUESTION ── */
+function loadQ() {
+  locked = false;
+  updateProg();
+  var q = qs[cur];
+  document.getElementById("bTag").textContent = (ICONS[q.b] || "📌") + " " + q.b;
+  document.getElementById("qNum").textContent = (cur + 1) + "/" + NUM_Q;
+  document.getElementById("qTxt").textContent = q.q;
+
+  var L = ["A", "B", "C"];
+  var ctr = document.getElementById("optsEl");
+  ctr.innerHTML = "";
+  for (var i = 0; i < q.o.length; i++) {
+    var btn = document.createElement("button");
+    btn.className = "opt";
+    btn.id = "o" + i;
+    btn.setAttribute("data-idx", i);
+    btn.innerHTML = '<span class="ol">' + L[i] + '</span><span>' + q.o[i] + '</span>';
+    btn.addEventListener("click", function() { pick(parseInt(this.getAttribute("data-idx"))); });
+    ctr.appendChild(btn);
+  }
+
+  tLeft = TIME;
+  updTimer();
+  var tb = document.getElementById("tBar");
+  tb.style.width = "100%";
+  tb.classList.remove("low");
+
+  clearInterval(tmr);
+  var t0 = Date.now();
+  tmr = setInterval(function() {
+    tLeft = Math.max(0, TIME - (Date.now() - t0) / 1000);
+    updTimer();
+    tb.style.width = (tLeft / TIME * 100) + "%";
+    if (tLeft <= 5) tb.classList.add("low");
+    if (tLeft <= 0) { clearInterval(tmr); timeout(); }
+  }, 100);
+}
+
+function updTimer() {
+  var el = document.getElementById("tNum");
+  el.textContent = Math.ceil(tLeft);
+  el.className = "timer-num" + (tLeft <= 5 ? " td" : tLeft <= 10 ? " tw" : "");
+}
+
+/* ── PICK ANSWER ── */
+function pick(idx) {
+  if (locked) return;
+  locked = true;
+  clearInterval(tmr);
+
+  var q = qs[cur];
+  var btns = document.querySelectorAll(".opt");
+  for (var i = 0; i < btns.length; i++) btns[i].disabled = true;
+
+  var used = TIME - tLeft;
+  var isOk = (idx === q.c);
+  var pts = 0;
+
+  if (isOk) {
+    pts = Math.round(MAX_PTS - ((MAX_PTS - MIN_PTS) * (used / TIME)));
+    okN++;
+    score += pts;
+    document.getElementById("o" + idx).classList.add("ok");
+  } else {
+    errN++;
+    document.getElementById("o" + idx).classList.add("nok");
+    document.getElementById("o" + q.c).classList.add("ok");
+  }
+
+  for (var j = 0; j < btns.length; j++) {
+    if (j !== idx && j !== q.c) btns[j].classList.add("off");
+  }
+
+  ans.push({ sel: idx, c: q.c, ok: isOk, to: false, pts: pts });
+  feedback(isOk, pts);
+}
+
+function timeout() {
+  if (locked) return;
+  locked = true;
+
+  var q = qs[cur];
+  var btns = document.querySelectorAll(".opt");
+  for (var i = 0; i < btns.length; i++) btns[i].disabled = true;
+  document.getElementById("o" + q.c).classList.add("ok");
+  for (var j = 0; j < btns.length; j++) {
+    if (j !== q.c) btns[j].classList.add("off");
+  }
+
+  toN++;
+  ans.push({ sel: -1, c: q.c, ok: false, to: true, pts: 0 });
+  feedback(null, 0);
+}
+
+function feedback(ok, pts) {
+  var ov = document.getElementById("fbOv");
+  var ico = document.getElementById("fbIco");
+  var txt = document.getElementById("fbTxt");
+  var pt = document.getElementById("fbPts");
+
+  if (ok === true) {
+    ico.textContent = "✅"; txt.textContent = "Correto!";
+    pt.textContent = "+" + pts + " pts"; pt.style.color = "var(--ok)";
+  } else if (ok === false) {
+    ico.textContent = "❌"; txt.textContent = "Incorreto!";
+    pt.textContent = "0 pts"; pt.style.color = "var(--red)";
+  } else {
+    ico.textContent = "⏰"; txt.textContent = "Tempo esgotado!";
+    pt.textContent = "0 pts"; pt.style.color = "#fbbf24";
+  }
+
+  ov.classList.add("show");
+  setTimeout(function() {
+    ov.classList.remove("show");
+    cur++;
+    if (cur < NUM_Q) {
+      loadQ();
+    } else {
+      var saved = saveResult();
+      showResultScreen(saved);
+    }
+  }, 1200);
+}
+
+/* ── RESULT ── */
+function showResultScreen(saved) {
+  goTo("scrResult");
+  document.getElementById("resPts").textContent = score.toLocaleString("pt-BR");
+  document.getElementById("resName").textContent = isTest ? "🧪 Modo Teste" : pName;
+  document.getElementById("resOk").textContent = okN;
+  document.getElementById("resErr").textContent = errN;
+  document.getElementById("resTo").textContent = toN;
+
+  var pct = Math.round(okN / NUM_Q * 100);
+  document.getElementById("resPct").textContent = pct + "% de aproveitamento";
+
+  var t = document.getElementById("resTitle");
+  if (pct >= 90) t.textContent = "🏆 Excelente!";
+  else if (pct >= 70) t.textContent = "🔥 Muito Bem!";
+  else if (pct >= 50) t.textContent = "💪 Bom Trabalho!";
+  else t.textContent = "📚 Continue Estudando!";
+
+  var info = document.getElementById("savedInfo");
+  if (isTest) {
+    info.innerHTML = '<div class="saved-badge" style="background:rgba(251,191,36,.15);border-color:rgba(251,191,36,.3);color:#fbbf24">🧪 Modo Teste — não registrado</div>';
+  } else if (saved) {
+    info.innerHTML = '<div class="saved-badge">✅ Resultado salvo no ranking</div>';
+    showToast("✅ Resultado registrado com sucesso!");
+  } else {
+    info.innerHTML = '<div class="saved-badge" style="background:rgba(255,0,0,.15);border-color:rgba(255,0,0,.3);color:var(--red)">⚠️ Erro ao salvar — informe o organizador</div>';
+  }
+}
+
+/* ── REVIEW ── */
+function showReview() {
+  goTo("scrReview");
+  var L = ["A", "B", "C"];
+  var list = document.getElementById("revList");
+  list.innerHTML = "";
+
+  for (var i = 0; i < qs.length; i++) {
+    var q = qs[i];
+    var a = ans[i];
+    var bc = "rnok", bt = "Errou";
+    if (a.to) { bc = "rto"; bt = "Tempo"; }
+    else if (a.ok) { bc = "rok"; bt = "Acertou"; }
+
+    var d = document.createElement("div");
+    d.className = "rev";
+    d.innerHTML = '<div class="rev-hd"><span class="rev-n">Q' + (i + 1) + ' · ' + (ICONS[q.b] || "") + ' ' + q.b + '</span><span class="rev-b ' + bc + '">' + bt + '</span></div>' +
+      '<div class="rev-q">' + q.q + '</div>' +
+      '<div class="rev-a">Correta: <span>' + L[q.c] + ") " + q.o[q.c] + '</span></div>';
+    list.appendChild(d);
+  }
+}
+
+/* ── ADMIN ── */
+function admLogin() {
+  var p = document.getElementById("admPass").value;
+  var e = document.getElementById("errAdm");
+  e.style.display = "none";
+
+  if (p === ADM_PASS) {
+    goTo("scrAdmin");
+    showToast("✅ Login realizado!");
+  } else {
+    e.textContent = "Senha incorreta.";
+    e.style.display = "block";
+  }
+}
+
+function admTest() {
+  isTest = true;
+  pName = "Admin (Teste)";
+  pEmail = "admin@teste";
+  startGame();
+}
+
+function admTab(btn, id) {
+  var tabs = document.querySelectorAll(".adm-tab");
+  for (var i = 0; i < tabs.length; i++) tabs[i].classList.remove("active");
+  var secs = document.querySelectorAll(".adm-sec");
+  for (var j = 0; j < secs.length; j++) secs[j].classList.remove("active");
+  btn.classList.add("active");
+  document.getElementById(id).classList.add("active");
+}
+
+function renderAdm() {
+  var ps = getP().sort(function(a, b) { return b.score - a.score; });
+  var n = ps.length;
+  var avgS = 0, avgA = 0;
+  if (n > 0) {
+    var sumS = 0, sumA = 0;
+    for (var i = 0; i < ps.length; i++) {
+      sumS += ps[i].score;
+      sumA += (ps[i].ok / ps[i].total * 100);
+    }
+    avgS = Math.round(sumS / n);
+    avgA = Math.round(sumA / n);
+  }
+
+  /* Ranking */
+  var rH = "";
+  if (n === 0) {
+    rH = '<div class="empty-msg">Nenhum participante ainda.</div>';
+  } else {
+    var m = ["🥇", "🥈", "🥉"];
+    rH = '<table class="rtable"><thead><tr><th>#</th><th>Nome</th><th>Pontos</th><th>Acertos</th></tr></thead><tbody>';
+    for (var r = 0; r < ps.length; r++) {
+      var pos = r < 3 ? '<span class="medal">' + m[r] + '</span>' : (r + 1);
+      rH += '<tr><td>' + pos + '</td><td>' + ps[r].name + '</td><td style="font-weight:700;color:var(--mred)">' + ps[r].score.toLocaleString("pt-BR") + '</td><td>' + ps[r].ok + '/' + ps[r].total + '</td></tr>';
+    }
+    rH += '</tbody></table>';
+  }
+  document.getElementById("rankHTML").innerHTML = rH;
+
+  /* Participantes */
+  var pH = "";
+  if (n === 0) {
+    pH = '<div class="empty-msg">Nenhum participante ainda.</div>';
+  } else {
+    pH = '<table class="rtable"><thead><tr><th>Nome</th><th>E-mail</th><th>Pts</th><th>Data</th></tr></thead><tbody>';
+    for (var p = 0; p < ps.length; p++) {
+      var dt = new Date(ps[p].date);
+      var dStr = dt.toLocaleDateString("pt-BR") + " " + dt.toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" });
+      pH += '<tr><td>' + ps[p].name + '</td><td style="font-size:.68rem;color:var(--lgray)">' + ps[p].email + '</td><td style="font-weight:700">' + ps[p].score + '</td><td style="font-size:.68rem;color:var(--lgray)">' + dStr + '</td></tr>';
+    }
+    pH += '</tbody></table>';
+  }
+  document.getElementById("partHTML").innerHTML = pH;
+
+  /* Stats */
+  document.getElementById("statsHTML").innerHTML =
+    '<div class="adm-stats">' +
+    '<div class="as"><div class="asv">' + n + '</div><div class="asl">Participantes</div></div>' +
+    '<div class="as"><div class="asv">' + avgS + '</div><div class="asl">Média Pts</div></div>' +
+    '<div class="as"><div class="asv">' + avgA + '%</div><div class="asl">Média Acertos</div></div>' +
+    '</div>';
+}
+
+/* ── EXPORT CSV ── */
+function exportCSV() {
+  var ps = getP().sort(function(a, b) { return b.score - a.score; });
+  if (ps.length === 0) { alert("Nenhum dado para exportar."); return; }
+  var csv = "\uFEFFPosição,Nome,E-mail,Pontos,Acertos,Erros,Tempo,Data\n";
+  for (var i = 0; i < ps.length; i++) {
+    var d = new Date(ps[i].date);
+    csv += (i + 1) + ',"' + ps[i].name + '","' + ps[i].email + '",' + ps[i].score + ',' + ps[i].ok + ',' + ps[i].err + ',' + ps[i].to + ',"' + d.toLocaleString("pt-BR") + '"\n';
+  }
+  var blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement("a");
+  a.href = url; a.download = "ranking_quiz_multiplicadores.csv";
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+/* ── CLEAR DATA ── */
+function clearData() {
+  if (confirm("Tem certeza? Isso apagará TODOS os dados de participantes e ranking.")) {
+    localStorage.removeItem("admquiz_p");
+    renderAdm();
+    showToast("🗑 Dados apagados!");
+  }
+}
+
+/* ── ENTER KEY ── */
+document.getElementById("inpEmail").addEventListener("keydown", function(e) { if (e.key === "Enter") register(); });
+document.getElementById("admPass").addEventListener("keydown", function(e) { if (e.key === "Enter") admLogin(); });
+</script>
+</body>
+</html>
+
