@@ -12,7 +12,8 @@
 body{font-family:'Inter',system-ui,sans-serif;background:var(--dark);color:var(--white);min-height:100vh}
 .glow{position:fixed;inset:0;pointer-events:none;z-index:0;background:radial-gradient(ellipse at 25% 40%,rgba(208,48,37,.12) 0%,transparent 55%),radial-gradient(ellipse at 75% 60%,rgba(122,19,21,.1) 0%,transparent 55%)}
 .wrap{position:relative;z-index:1;max-width:560px;margin:0 auto;padding:1.5rem;min-height:100vh;display:flex;flex-direction:column;justify-content:center}
-.screen{display:none;flex-direction:column;align-items:center;gap:1.25rem}.screen.on{display:flex}
+.screen{display:none;flex-direction:column;align-items:center;gap:1.25rem}
+.screen.on{display:flex}
 .center{text-align:center}
 .badge{display:inline-block;background:var(--mred);color:var(--white);font-size:.7rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:.4rem 1.1rem;border-radius:20px}
 .field{width:100%;max-width:400px;text-align:left}
@@ -29,19 +30,27 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--dark);color:var(-
 .ghost{background:none;border:none;color:rgba(255,255,255,.2);font-size:.72rem;cursor:pointer;padding:.5rem;font-family:inherit}
 .ghost:hover{color:rgba(255,255,255,.4)}
 .actions{display:flex;gap:.7rem;flex-wrap:wrap;justify-content:center}
-.title{font-size:clamp(2rem,6vw,3.2rem);font-weight:900;line-height:1.1}.title .hl{color:var(--red)}
+.title{font-size:clamp(2rem,6vw,3.2rem);font-weight:900;line-height:1.1}
+.title .hl{color:var(--red)}
 .sub{font-size:.95rem;color:var(--lgray);max-width:420px;line-height:1.5}
+.sub-bold{font-size:.95rem;color:var(--lgray);max-width:420px;line-height:1.5;text-align:center;font-weight:700}
 .pills{display:flex;gap:.5rem;flex-wrap:wrap;justify-content:center}
 .pill{background:rgba(122,19,21,.3);border:1px solid rgba(208,48,37,.35);padding:.35rem .85rem;border-radius:20px;font-size:.72rem;font-weight:600;color:var(--lgray)}
 .chips{display:flex;gap:.6rem;flex-wrap:wrap;justify-content:center}
 .chip{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:.7rem 1.2rem;text-align:center;min-width:85px}
-.chip .cv{font-size:1.4rem;font-weight:800;color:var(--mred)}.chip .cl{font-size:.6rem;color:var(--lgray);text-transform:uppercase;letter-spacing:1px;margin-top:.15rem}
-.prog-wrap{width:100%}.prog-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem}.prog-top span{font-size:.75rem;color:var(--lgray);font-weight:600}
+.chip .cv{font-size:1.4rem;font-weight:800;color:var(--mred)}
+.chip .cl{font-size:.6rem;color:var(--lgray);text-transform:uppercase;letter-spacing:1px;margin-top:.15rem}
+.prog-wrap{width:100%}
+.prog-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem}
+.prog-top span{font-size:.75rem;color:var(--lgray);font-weight:600}
 .prog-track{width:100%;height:7px;background:rgba(255,255,255,.08);border-radius:4px;overflow:hidden}
 .prog-fill{height:100%;background:linear-gradient(90deg,var(--mred),var(--dred));border-radius:4px;transition:width .5s ease}
 .dots{display:flex;gap:5px;margin-top:.5rem;justify-content:center;flex-wrap:wrap}
 .dot{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.1);transition:all .3s}
-.dot.now{background:var(--mred);transform:scale(1.35)}.dot.dok{background:var(--ok)}.dot.derr{background:var(--red)}.dot.dto{background:var(--gray)}
+.dot.now{background:var(--mred);transform:scale(1.35)}
+.dot.dok{background:var(--ok)}
+.dot.derr{background:var(--red)}
+.dot.dto{background:var(--gray)}
 .q-head{width:100%;display:flex;justify-content:space-between;align-items:center}
 .block-tag{font-size:.68rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--mred);background:rgba(208,48,37,.12);padding:.3rem .8rem;border-radius:8px}
 .q-num{font-size:.8rem;color:var(--lgray);font-weight:600}
@@ -50,7 +59,8 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--dark);color:var(-
 .timer-fill.low{background:var(--red);animation:tpulse .3s infinite}
 @keyframes tpulse{0%,100%{opacity:1}50%{opacity:.5}}
 .timer-num{font-size:2.5rem;font-weight:900;font-variant-numeric:tabular-nums}
-.timer-num.tw{color:var(--lgray)}.timer-num.td{color:var(--red);animation:tpulse .5s infinite}
+.timer-num.tw{color:var(--lgray)}
+.timer-num.td{color:var(--red);animation:tpulse .5s infinite}
 .q-card{width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:1.5rem 1.2rem;text-align:center}
 .q-card h2{font-size:clamp(1rem,3vw,1.25rem);font-weight:700;line-height:1.4}
 .opts{width:100%;display:flex;flex-direction:column;gap:.6rem}
@@ -61,36 +71,49 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--dark);color:var(-
 .opt.ok .ol{background:var(--ok);color:var(--white)}
 .opt.nok{border-color:var(--red)!important;background:var(--err-bg)!important;pointer-events:none;animation:shake .35s}
 .opt.nok .ol{background:var(--red);color:var(--white)}
-.opt.off{pointer-events:none;opacity:.45}.opt.off.ok{opacity:1}
+.opt.off{pointer-events:none;opacity:.45}
+.opt.off.ok{opacity:1}
 @keyframes pop{0%{transform:scale(1)}50%{transform:scale(1.02)}100%{transform:scale(1)}}
 @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
 .fb-ov{display:none;position:fixed;inset:0;z-index:200;background:rgba(35,31,32,.92);justify-content:center;align-items:center}
 .fb-ov.show{display:flex}
 .fb-box{text-align:center;animation:fbIn .3s ease-out}
 @keyframes fbIn{from{transform:scale(.8);opacity:0}to{transform:scale(1);opacity:1}}
-.fb-ico{font-size:3.5rem;margin-bottom:.5rem}.fb-txt{font-size:1.3rem;font-weight:700}.fb-pts{font-size:.9rem;margin-top:.3rem}
+.fb-ico{font-size:3.5rem;margin-bottom:.5rem}
+.fb-txt{font-size:1.3rem;font-weight:700}
+.fb-pts{font-size:.9rem;margin-top:.3rem}
 .toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(100px);background:var(--ok);color:var(--white);padding:.7rem 1.5rem;border-radius:12px;font-size:.85rem;font-weight:700;z-index:300;transition:transform .4s ease;box-shadow:0 4px 20px rgba(0,0,0,.4)}
 .toast.show{transform:translateX(-50%) translateY(0)}
 .score-ring{width:150px;height:150px;border-radius:50%;border:5px solid rgba(208,48,37,.25);display:flex;flex-direction:column;align-items:center;justify-content:center;margin:0 auto .8rem}
-.score-ring .sv{font-size:2.8rem;font-weight:900;color:var(--red)}.score-ring .sl{font-size:.65rem;color:var(--lgray);text-transform:uppercase;letter-spacing:1px}
+.score-ring .sv{font-size:2.8rem;font-weight:900;color:var(--red)}
+.score-ring .sl{font-size:.65rem;color:var(--lgray);text-transform:uppercase;letter-spacing:1px}
 .rgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;width:100%;margin-top:1rem}
 .rg-item{background:rgba(255,255,255,.04);border-radius:12px;padding:.9rem .5rem;text-align:center}
-.rg-item .rv{font-size:1.5rem;font-weight:800}.rg-item .rl{font-size:.6rem;color:var(--lgray);text-transform:uppercase;letter-spacing:.5px;margin-top:.15rem}
-.rg-item.green .rv{color:var(--ok)}.rg-item.red .rv{color:var(--red)}.rg-item.yel .rv{color:#fbbf24}
+.rg-item .rv{font-size:1.5rem;font-weight:800}
+.rg-item .rl{font-size:.6rem;color:var(--lgray);text-transform:uppercase;letter-spacing:.5px;margin-top:.15rem}
+.rg-item.green .rv{color:var(--ok)}
+.rg-item.red .rv{color:var(--red)}
+.rg-item.yel .rv{color:#fbbf24}
 .thanks{width:100%;padding:1.2rem;text-align:center;background:rgba(122,19,21,.15);border:1px solid rgba(208,48,37,.25);border-radius:14px}
-.thanks h3{font-size:1.1rem;margin-bottom:.3rem}.thanks p{font-size:.82rem;color:var(--lgray);line-height:1.5}
+.thanks h3{font-size:1.1rem;margin-bottom:.3rem}
+.thanks p{font-size:.82rem;color:var(--lgray);line-height:1.5}
 .saved-badge{display:inline-flex;align-items:center;gap:.4rem;background:rgba(34,197,94,.15);border:1px solid rgba(34,197,94,.3);color:var(--ok);padding:.3rem .8rem;border-radius:8px;font-size:.72rem;font-weight:700;margin-top:.5rem}
 .rev-list{width:100%;display:flex;flex-direction:column;gap:.5rem}
 .rev{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:.8rem 1rem;text-align:left}
 .rev-hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:.3rem}
 .rev-n{font-size:.68rem;color:var(--lgray);font-weight:600}
 .rev-b{font-size:.62rem;font-weight:700;padding:.15rem .6rem;border-radius:6px}
-.rev-b.rok{background:rgba(34,197,94,.18);color:var(--ok)}.rev-b.rnok{background:rgba(255,0,0,.15);color:var(--red)}.rev-b.rto{background:rgba(65,64,66,.3);color:var(--lgray)}
-.rev-q{font-size:.82rem;font-weight:600;margin-bottom:.2rem}.rev-a{font-size:.75rem;color:var(--lgray)}.rev-a span{color:var(--ok);font-weight:600}
+.rev-b.rok{background:rgba(34,197,94,.18);color:var(--ok)}
+.rev-b.rnok{background:rgba(255,0,0,.15);color:var(--red)}
+.rev-b.rto{background:rgba(65,64,66,.3);color:var(--lgray)}
+.rev-q{font-size:.82rem;font-weight:600;margin-bottom:.2rem}
+.rev-a{font-size:.75rem;color:var(--lgray)}
+.rev-a span{color:var(--ok);font-weight:600}
 .adm-tabs{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1rem}
 .adm-tab{padding:.6rem 1.2rem;border-radius:10px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);color:var(--lgray);font-size:.8rem;font-weight:600;cursor:pointer;font-family:inherit;transition:all .15s}
 .adm-tab.active{background:var(--mred);color:var(--white);border-color:var(--mred)}
-.adm-sec{display:none;width:100%}.adm-sec.active{display:block}
+.adm-sec{display:none;width:100%}
+.adm-sec.active{display:block}
 .rtable{width:100%;border-collapse:collapse;font-size:.8rem}
 .rtable th{text-align:left;color:var(--lgray);font-weight:600;padding:.6rem .7rem;border-bottom:1px solid rgba(255,255,255,.1);font-size:.68rem;text-transform:uppercase;letter-spacing:.5px}
 .rtable td{padding:.6rem .7rem;border-bottom:1px solid rgba(255,255,255,.04);color:var(--white)}
@@ -98,7 +121,8 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--dark);color:var(-
 .medal{font-size:1.1rem}
 .adm-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;margin-bottom:1rem}
 .as{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:1rem;text-align:center}
-.as .asv{font-size:1.6rem;font-weight:800;color:var(--mred)}.as .asl{font-size:.6rem;color:var(--lgray);text-transform:uppercase;letter-spacing:.5px;margin-top:.15rem}
+.as .asv{font-size:1.6rem;font-weight:800;color:var(--mred)}
+.as .asl{font-size:.6rem;color:var(--lgray);text-transform:uppercase;letter-spacing:.5px;margin-top:.15rem}
 .empty-msg{text-align:center;padding:2rem;color:var(--lgray);font-size:.85rem}
 .loading{text-align:center;padding:2rem;color:var(--lgray);font-size:.85rem}
 .loading::after{content:'';display:inline-block;width:16px;height:16px;border:2px solid var(--lgray);border-top-color:var(--mred);border-radius:50%;animation:spin .6s linear infinite;margin-left:.5rem;vertical-align:middle}
@@ -108,65 +132,157 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--dark);color:var(-
 </head>
 <body>
 <div class="glow"></div>
-<div class="fb-ov" id="fbOv"><div class="fb-box"><div class="fb-ico" id="fbIco"></div><div class="fb-txt" id="fbTxt"></div><div class="fb-pts" id="fbPts"></div></div></div>
+<div class="fb-ov" id="fbOv">
+  <div class="fb-box">
+    <div class="fb-ico" id="fbIco"></div>
+    <div class="fb-txt" id="fbTxt"></div>
+    <div class="fb-pts" id="fbPts"></div>
+  </div>
+</div>
 <div class="toast" id="toast"></div>
+
 <div class="wrap">
+
+<!-- TELA CADASTRO -->
 <div class="screen on" id="scrStart">
-<div class="center"><div class="badge">AD Summit 2026</div><h1 class="title" style="margin-top:.7rem">Quiz Multiplicadores<br><span class="hl">Ademicon</span></h1><p class="sub" style="margin-top:.4rem;text-align:center;font-weight:700">Teste seus conhecimentos!</p>
-  <div class="pills"><span class="pill">📋 Programa Multiplicadores</span><span class="pill">📤 Evidências de Treinamento</span><span class="pill">🎯 Avaliação 360°</span></div>
-  <div class="chips"><div class="chip"><div class="cv">10</div><div class="cl">Perguntas</div></div><div class="chip"><div class="cv">20s</div><div class="cl">Por Questão</div></div><div class="chip"><div class="cv">🏆</div><div class="cl">Ranking</div></div></div>
-  <div class="field"><label>Seu nome</label><input type="text" id="inpName" placeholder="Nome completo" maxlength="40" autocomplete="off"></div>
-  <div class="field"><label>Seu e-mail</label><input type="email" id="inpEmail" placeholder="seuemail@exemplo.com" maxlength="60" autocomplete="off"></div>
-  <div class="field"><label>WhatsApp</label><input type="tel" id="inpPhone" placeholder="(11) 99999-9999" maxlength="15" autocomplete="off"><div class="err" id="errPhone"></div></div>
+  <div class="center">
+    <div class="badge">AD Summit 2026</div>
+    <h1 class="title" style="margin-top:.7rem">Quiz<br><span class="hl">Multiplicadores</span></h1>
+    <p class="sub-bold" style="margin-top:.4rem">Teste seus conhecimentos e concorra a prêmios!</p>
+  </div>
+  <div class="pills">
+    <span class="pill">📋 Política do Programa</span>
+    <span class="pill">📤 Envio de Evidências</span>
+    <span class="pill">🎯 Avaliação 360°</span>
+  </div>
+  <div class="chips">
+    <div class="chip"><div class="cv">10</div><div class="cl">Perguntas</div></div>
+    <div class="chip"><div class="cv">20s</div><div class="cl">Por Questão</div></div>
+    <div class="chip"><div class="cv">🏆</div><div class="cl">Ranking</div></div>
+  </div>
+  <div class="field">
+    <label>Seu nome</label>
+    <input type="text" id="inpName" placeholder="Nome completo" maxlength="40" autocomplete="off">
+  </div>
+  <div class="field">
+    <label>Seu e-mail</label>
+    <input type="email" id="inpEmail" placeholder="seuemail@exemplo.com" maxlength="60" autocomplete="off">
+  </div>
+  <div class="field">
+    <label>WhatsApp</label>
+    <input type="tel" id="inpPhone" placeholder="(11) 99999-9999" maxlength="15" autocomplete="off">
+    <div class="err" id="errPhone"></div>
+  </div>
   <button class="btn" id="btnStart" onclick="register()">Iniciar Quiz</button>
   <button class="ghost" onclick="goTo('scrAdmLogin')">⚙ Área Administrador</button>
 </div>
+
+<!-- TELA LOGIN ADMIN -->
 <div class="screen" id="scrAdmLogin">
-  <div class="center"><div class="badge">Administrador</div><h1 class="title" style="margin-top:.7rem;font-size:1.8rem">Área Restrita</h1><p class="sub">Acesso exclusivo para gestão</p></div>
-  <div class="field"><label>Senha</label><input type="password" id="admPass" placeholder="Digite a senha" autocomplete="off"><div class="err" id="errAdm"></div></div>
+  <div class="center">
+    <div class="badge">Administrador</div>
+    <h1 class="title" style="margin-top:.7rem;font-size:1.8rem">Área Restrita</h1>
+    <p class="sub">Acesso exclusivo para gestão</p>
+  </div>
+  <div class="field">
+    <label>Senha</label>
+    <input type="password" id="admPass" placeholder="Digite a senha" autocomplete="off">
+    <div class="err" id="errAdm"></div>
+  </div>
   <button class="btn" onclick="admLogin()">Entrar</button>
   <button class="ghost" onclick="goTo('scrStart')">← Voltar ao Quiz</button>
 </div>
+
+<!-- TELA PAINEL ADMIN -->
 <div class="screen" id="scrAdmin">
-  <div class="center"><div class="badge">Painel Admin</div><h1 class="title" style="margin-top:.7rem;font-size:1.6rem">Gestão do Quiz</h1></div>
+  <div class="center">
+    <div class="badge">Painel Admin</div>
+    <h1 class="title" style="margin-top:.7rem;font-size:1.6rem">Gestão do Quiz</h1>
+  </div>
   <div style="width:100%">
-    <div class="adm-tabs"><button class="adm-tab active" onclick="admTab(this,'secRank')">🏆 Ranking</button><button class="adm-tab" onclick="admTab(this,'secPart')">👥 Participantes</button><button class="adm-tab" onclick="admTab(this,'secStats')">📊 Estatísticas</button></div>
+    <div class="adm-tabs">
+      <button class="adm-tab active" onclick="admTab(this,'secRank')">🏆 Ranking</button>
+      <button class="adm-tab" onclick="admTab(this,'secPart')">👥 Participantes</button>
+      <button class="adm-tab" onclick="admTab(this,'secStats')">📊 Estatísticas</button>
+    </div>
     <div class="adm-sec active" id="secRank"><div id="rankHTML"><div class="loading">Carregando</div></div></div>
     <div class="adm-sec" id="secPart"><div id="partHTML"></div></div>
     <div class="adm-sec" id="secStats"><div id="statsHTML"></div></div>
   </div>
-  <div class="actions"><button class="btn" onclick="admTest()">🧪 Testar</button><button class="btn2" onclick="loadRanking()">🔄 Atualizar</button><button class="btn2" onclick="exportCSV()">📥 CSV</button></div>
+  <div class="actions">
+    <button class="btn" onclick="admTest()">🧪 Testar</button>
+    <button class="btn2" onclick="loadRanking()">🔄 Atualizar</button>
+    <button class="btn2" onclick="exportCSV()">📥 CSV</button>
+  </div>
   <button class="ghost" onclick="goTo('scrStart')">← Sair</button>
 </div>
+
+<!-- TELA QUIZ -->
 <div class="screen" id="scrQuiz">
-  <div class="prog-wrap"><div class="prog-top"><span id="progLabel">Pergunta 1 de 10</span><span id="progScore">0 pts</span></div><div class="prog-track"><div class="prog-fill" id="progFill" style="width:0%"></div></div><div class="dots" id="dots"></div></div>
-  <div class="q-head"><div class="block-tag" id="bTag"></div><div class="q-num" id="qNum"></div></div>
+  <div class="prog-wrap">
+    <div class="prog-top">
+      <span id="progLabel">Pergunta 1 de 10</span>
+      <span id="progScore">0 pts</span>
+    </div>
+    <div class="prog-track"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
+    <div class="dots" id="dots"></div>
+  </div>
+  <div class="q-head">
+    <div class="block-tag" id="bTag"></div>
+    <div class="q-num" id="qNum"></div>
+  </div>
   <div class="timer-track"><div class="timer-fill" id="tBar"></div></div>
   <div class="timer-num" id="tNum">20</div>
   <div class="q-card"><h2 id="qTxt"></h2></div>
   <div class="opts" id="optsEl"></div>
 </div>
+
+<!-- TELA RESULTADO -->
 <div class="screen" id="scrResult">
-  <div class="center"><div class="badge">Resultado Final</div><h1 class="title" id="resTitle" style="margin-top:.7rem;font-size:2rem"></h1></div>
+  <div class="center">
+    <div class="badge">Resultado Final</div>
+    <h1 class="title" id="resTitle" style="margin-top:.7rem;font-size:2rem"></h1>
+  </div>
   <div class="q-card" style="padding:1.8rem 1.2rem">
-    <div class="score-ring"><div class="sv" id="resPts">0</div><div class="sl">Pontos</div></div>
+    <div class="score-ring">
+      <div class="sv" id="resPts">0</div>
+      <div class="sl">Pontos</div>
+    </div>
     <div id="resName" style="font-size:1.1rem;font-weight:700;margin-bottom:.2rem"></div>
     <div id="resPct" style="color:var(--lgray);font-size:.85rem"></div>
     <div id="savedInfo"></div>
-    <div class="rgrid"><div class="rg-item green"><div class="rv" id="resOk">0</div><div class="rl">Acertos</div></div><div class="rg-item red"><div class="rv" id="resErr">0</div><div class="rl">Erros</div></div><div class="rg-item yel"><div class="rv" id="resTime">0s</div><div class="rl">Tempo Total</div></div></div>
+    <div class="rgrid">
+      <div class="rg-item green"><div class="rv" id="resOk">0</div><div class="rl">Acertos</div></div>
+      <div class="rg-item red"><div class="rv" id="resErr">0</div><div class="rl">Erros</div></div>
+      <div class="rg-item yel"><div class="rv" id="resTime">0s</div><div class="rl">Tempo Total</div></div>
+    </div>
   </div>
-  <div class="thanks"><h3>🎉 Obrigado pela participação!</h3><p>Seu resultado foi registrado no ranking do AD Summit!</p></div>
-  <div class="actions"><button class="btn2" onclick="showReview()">📋 Ver Gabarito</button></div>
+  <div class="thanks">
+    <h3>🎉 Obrigado pela participação!</h3>
+    <p>Seu resultado foi registrado no ranking do AD Summit!</p>
+  </div>
+  <div class="actions">
+    <button class="btn2" onclick="showReview()">📋 Ver Gabarito</button>
+  </div>
 </div>
+
+<!-- TELA GABARITO -->
 <div class="screen" id="scrReview">
-  <div class="center"><div class="badge">Gabarito</div><h1 class="title" style="margin-top:.7rem;font-size:1.6rem">Revisão</h1></div>
+  <div class="center">
+    <div class="badge">Gabarito</div>
+    <h1 class="title" style="margin-top:.7rem;font-size:1.6rem">Revisão</h1>
+  </div>
   <div class="rev-list" id="revList"></div>
-  <div class="actions"><button class="btn2" onclick="goTo('scrResult')">← Voltar</button></div>
+  <div class="actions">
+    <button class="btn2" onclick="goTo('scrResult')">← Voltar</button>
+  </div>
 </div>
+
 </div>
 
 <script>
 var API_URL="https://script.google.com/macros/s/AKfycbyZQLBC3_P0ptGhPRery9pMk3Kt9OXt972B3K8TnOQ1-40ZqroGjbEZqDbhwzUd6bG4/exec";
+
 var BANK=[
 {b:"Política do Programa",q:"O Multiplicador deve ser exclusivamente de qual área?",o:["Área comercial","Área administrativa","Área financeira"],c:1},
 {b:"Política do Programa",q:"Qual a nota mínima para concluir a formação de Multiplicador?",o:["60 pontos","70 pontos","80 pontos"],c:1},
@@ -199,215 +315,410 @@ var BANK=[
 {b:"Avaliação 360°",q:"Quantos Reducing Points por 2 notificações gravíssimas?",o:["3 pontos","6 pontos","10 pontos"],c:0},
 {b:"Avaliação 360°",q:"Novas unidades são avaliadas na 360° a partir de quando?",o:["Imediatamente","No 2° trimestre subsequente","Após 1 ano"],c:1}
 ];
+
 var ICONS={"Política do Programa":"📋","Envio de Evidências":"📤","Avaliação 360°":"🎯"};
 var TIME=20,MAX_PTS=1000,MIN_PTS=200,NUM_Q=10,ADM_PASS="ad2026";
 var qs=[],cur=0,score=0,okN=0,errN=0,tmr=null,tLeft=TIME,ans=[];
 var totalTime=0,qStart=0;
 var pName="",pEmail="",pPhone="",isTest=false,locked=false,rankingCache=[];
 
+/* MASCARA WHATSAPP */
 function maskPhone(v){
-v=v.replace(/\D/g,"");
-if(v.length>11)v=v.substring(0,11);
-if(v.length>6)v="("+v.substring(0,2)+") "+v.substring(2,7)+"-"+v.substring(7);
-else if(v.length>2)v="("+v.substring(0,2)+") "+v.substring(2);
-else if(v.length>0)v="("+v;
-return v;
+  v=v.replace(/\D/g,"");
+  if(v.length>11)v=v.substring(0,11);
+  if(v.length>6)v="("+v.substring(0,2)+") "+v.substring(2,7)+"-"+v.substring(7);
+  else if(v.length>2)v="("+v.substring(0,2)+") "+v.substring(2);
+  else if(v.length>0)v="("+v;
+  return v;
 }
-
-var phoneInput=document.getElementById("inpPhone");
-phoneInput.addEventListener("input",function(){
-var pos=this.selectionStart;
-var old=this.value.length;
-this.value=maskPhone(this.value);
-var diff=this.value.length-old;
-this.setSelectionRange(pos+diff,pos+diff);
+document.getElementById("inpPhone").addEventListener("input",function(){
+  var pos=this.selectionStart;
+  var old=this.value.length;
+  this.value=maskPhone(this.value);
+  var diff=this.value.length-old;
+  this.setSelectionRange(pos+diff,pos+diff);
 });
 
-function showToast(m){var t=document.getElementById("toast");t.textContent=m;t.classList.add("show");setTimeout(function(){t.classList.remove("show")},2500)}
+/* TOAST */
+function showToast(m){
+  var t=document.getElementById("toast");
+  t.textContent=m;
+  t.classList.add("show");
+  setTimeout(function(){t.classList.remove("show")},2500);
+}
 
-function goTo(id){var s=document.querySelectorAll(".screen");for(var i=0;i<s.length;i++)s[i].classList.remove("on");document.getElementById(id).classList.add("on");window.scrollTo({top:0,behavior:"smooth"});if(id==="scrAdmin")loadRanking()}
+/* NAVEGACAO */
+function goTo(id){
+  var s=document.querySelectorAll(".screen");
+  for(var i=0;i<s.length;i++) s[i].classList.remove("on");
+  document.getElementById(id).classList.add("on");
+  window.scrollTo({top:0,behavior:"smooth"});
+  if(id==="scrAdmin") loadRanking();
+}
 
-function shuffle(a){var r=a.slice();for(var i=r.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=r[i];r[i]=r[j];r[j]=t}return r}
+/* SHUFFLE */
+function shuffle(a){
+  var r=a.slice();
+  for(var i=r.length-1;i>0;i--){
+    var j=Math.floor(Math.random()*(i+1));
+    var t=r[i];r[i]=r[j];r[j]=t;
+  }
+  return r;
+}
 
+/* SORTEAR 10 PERGUNTAS */
 function pickQuestions(){
-var byB={};for(var i=0;i<BANK.length;i++){var q=BANK[i];if(!byB[q.b])byB[q.b]=[];byB[q.b].push(q)}
-var sel=[],blocks=Object.keys(byB);
-for(var b=0;b<blocks.length;b++){var s=shuffle(byB[blocks[b]]);sel.push(s[0],s[1],s[2])}
-var used={};for(var k=0;k<sel.length;k++)used[sel[k].q]=true;
-var rem=[];for(var m=0;m<BANK.length;m++){if(!used[BANK[m].q])rem.push(BANK[m])}
-var ex=shuffle(rem);if(ex.length>0)sel.push(ex[0]);
-return shuffle(sel).slice(0,NUM_Q);
+  var byB={};
+  for(var i=0;i<BANK.length;i++){
+    var q=BANK[i];
+    if(!byB[q.b]) byB[q.b]=[];
+    byB[q.b].push(q);
+  }
+  var sel=[],blocks=Object.keys(byB);
+  for(var b=0;b<blocks.length;b++){
+    var s=shuffle(byB[blocks[b]]);
+    sel.push(s[0],s[1],s[2]);
+  }
+  var used={};
+  for(var k=0;k<sel.length;k++) used[sel[k].q]=true;
+  var rem=[];
+  for(var m=0;m<BANK.length;m++){
+    if(!used[BANK[m].q]) rem.push(BANK[m]);
+  }
+  var ex=shuffle(rem);
+  if(ex.length>0) sel.push(ex[0]);
+  return shuffle(sel).slice(0,NUM_Q);
 }
 
+/* VERIFICAR EMAIL */
 function checkEmail(email,cb){
-fetch(API_URL).then(function(r){return r.json()}).then(function(d){
-if(d.status==="ok"&&d.data){var f=false;for(var i=0;i<d.data.length;i++){if(d.data[i].email.toString().toLowerCase()===email.toLowerCase()){f=true;break}}cb(f)}else cb(false)
-}).catch(function(){cb(false)});
+  fetch(API_URL).then(function(r){return r.json()}).then(function(d){
+    if(d.status==="ok"&&d.data){
+      var f=false;
+      for(var i=0;i<d.data.length;i++){
+        if(d.data[i].email.toString().toLowerCase()===email.toLowerCase()){f=true;break}
+      }
+      cb(f);
+    } else cb(false);
+  }).catch(function(){cb(false)});
 }
 
+/* ENVIAR RESULTADO */
 function sendResult(cb){
-fetch(API_URL,{method:"POST",headers:{"Content-Type":"text/plain"},body:JSON.stringify({name:pName,email:pEmail,phone:pPhone,score:score,ok:okN,err:errN,to:Math.round(totalTime)}),mode:"no-cors"}).then(function(){if(cb)cb(true)}).catch(function(){if(cb)cb(false)});
+  fetch(API_URL,{
+    method:"POST",
+    headers:{"Content-Type":"text/plain"},
+    body:JSON.stringify({name:pName,email:pEmail,phone:pPhone,score:score,ok:okN,err:errN,to:Math.round(totalTime)}),
+    mode:"no-cors"
+  }).then(function(){if(cb)cb(true)}).catch(function(){if(cb)cb(false)});
 }
 
+/* ENVIAR RESPOSTAS DETALHADAS */
 function sendAnswers(){
-var L=["A","B","C"];var payload=[];
-for(var i=0;i<qs.length;i++){
-var q=qs[i],a=ans[i];
-var resposta=a.to?"Tempo esgotado":L[a.sel]+" - "+q.o[a.sel];
-var correta=L[q.c]+" - "+q.o[q.c];
-payload.push({email:pEmail,phone:pPhone,question:q.q,block:q.b,answer:resposta,correct:correta,hit:a.ok});
-}
-fetch(API_URL,{method:"POST",headers:{"Content-Type":"text/plain"},body:JSON.stringify({type:"answers",answers:payload}),mode:"no-cors"}).catch(function(){});
+  var L=["A","B","C"];
+  var payload=[];
+  for(var i=0;i<qs.length;i++){
+    var q=qs[i],a=ans[i];
+    var resposta=a.to?"Tempo esgotado":L[a.sel]+" - "+q.o[a.sel];
+    var correta=L[q.c]+" - "+q.o[q.c];
+    payload.push({email:pEmail,phone:pPhone,question:q.q,block:q.b,answer:resposta,correct:correta,hit:a.ok});
+  }
+  fetch(API_URL,{
+    method:"POST",
+    headers:{"Content-Type":"text/plain"},
+    body:JSON.stringify({type:"answers",answers:payload}),
+    mode:"no-cors"
+  }).catch(function(){});
 }
 
+/* CARREGAR RANKING */
 function loadRanking(){
-document.getElementById("rankHTML").innerHTML='<div class="loading">Carregando</div>';
-document.getElementById("partHTML").innerHTML='<div class="loading">Carregando</div>';
-document.getElementById("statsHTML").innerHTML='<div class="loading">Carregando</div>';
-fetch(API_URL).then(function(r){return r.json()}).then(function(d){
-if(d.status==="ok"){rankingCache=d.data||[];renderAdm(rankingCache);showToast("✅ Dados carregados!")}
-else document.getElementById("rankHTML").innerHTML='<div class="empty-msg">Erro ao carregar.</div>';
-}).catch(function(){document.getElementById("rankHTML").innerHTML='<div class="empty-msg">Erro de conexão.</div>'});
+  document.getElementById("rankHTML").innerHTML='<div class="loading">Carregando</div>';
+  document.getElementById("partHTML").innerHTML='<div class="loading">Carregando</div>';
+  document.getElementById("statsHTML").innerHTML='<div class="loading">Carregando</div>';
+  fetch(API_URL).then(function(r){return r.json()}).then(function(d){
+    if(d.status==="ok"){rankingCache=d.data||[];renderAdm(rankingCache);showToast("✅ Dados carregados!")}
+    else document.getElementById("rankHTML").innerHTML='<div class="empty-msg">Erro ao carregar.</div>';
+  }).catch(function(){
+    document.getElementById("rankHTML").innerHTML='<div class="empty-msg">Erro de conexão.</div>';
+  });
 }
 
+/* RENDERIZAR ADMIN */
 function renderAdm(ps){
-var n=ps.length,avgS=0,avgA=0;
-if(n>0){var sS=0,sA=0;for(var i=0;i<n;i++){sS+=Number(ps[i].score)||0;sA+=(Number(ps[i].ok)||0)/NUM_Q*100}avgS=Math.round(sS/n);avgA=Math.round(sA/n)}
-var rH="";
-if(n===0){rH='<div class="empty-msg">Nenhum participante ainda.</div>'}
-else{var md=["🥇","🥈","🥉"];rH='<table class="rtable"><thead><tr><th>#</th><th>Nome</th><th>Pontos</th><th>Acertos</th></tr></thead><tbody>';for(var r=0;r<n;r++){var p=r<3?'<span class="medal">'+md[r]+"</span>":(r+1);rH+="<tr><td>"+p+"</td><td>"+ps[r].name+'</td><td style="font-weight:700;color:var(--mred)">'+Number(ps[r].score).toLocaleString("pt-BR")+"</td><td>"+ps[r].ok+"/"+NUM_Q+"</td></tr>"}rH+="</tbody></table>"}
-document.getElementById("rankHTML").innerHTML=rH;
-var pH="";
-if(n===0){pH='<div class="empty-msg">Nenhum participante.</div>'}
-else{pH='<table class="rtable"><thead><tr><th>Nome</th><th>E-mail</th><th>WhatsApp</th><th>Pts</th></tr></thead><tbody>';for(var p2=0;p2<n;p2++){pH+="<tr><td>"+ps[p2].name+'</td><td style="font-size:.68rem;color:var(--lgray)">'+ps[p2].email+'</td><td style="font-size:.68rem;color:var(--lgray)">'+(ps[p2].phone||"-")+'</td><td style="font-weight:700">'+ps[p2].score+"</td></tr>"}pH+="</tbody></table>"}
-document.getElementById("partHTML").innerHTML=pH;
-document.getElementById("statsHTML").innerHTML='<div class="adm-stats"><div class="as"><div class="asv">'+n+'</div><div class="asl">Participantes</div></div><div class="as"><div class="asv">'+avgS+'</div><div class="asl">Média Pts</div></div><div class="as"><div class="asv">'+avgA+'%</div><div class="asl">Média Acertos</div></div></div>';
+  var n=ps.length,avgS=0,avgA=0;
+  if(n>0){
+    var sS=0,sA=0;
+    for(var i=0;i<n;i++){sS+=Number(ps[i].score)||0;sA+=(Number(ps[i].ok)||0)/NUM_Q*100}
+    avgS=Math.round(sS/n);avgA=Math.round(sA/n);
+  }
+  var rH="";
+  if(n===0){rH='<div class="empty-msg">Nenhum participante ainda.</div>'}
+  else{
+    var md=["🥇","🥈","🥉"];
+    rH='<table class="rtable"><thead><tr><th>#</th><th>Nome</th><th>Pontos</th><th>Acertos</th></tr></thead><tbody>';
+    for(var r=0;r<n;r++){
+      var p=r<3?'<span class="medal">'+md[r]+"</span>":(r+1);
+      rH+="<tr><td>"+p+"</td><td>"+ps[r].name+'</td><td style="font-weight:700;color:var(--mred)">'+Number(ps[r].score).toLocaleString("pt-BR")+"</td><td>"+ps[r].ok+"/"+NUM_Q+"</td></tr>";
+    }
+    rH+="</tbody></table>";
+  }
+  document.getElementById("rankHTML").innerHTML=rH;
+
+  var pH="";
+  if(n===0){pH='<div class="empty-msg">Nenhum participante.</div>'}
+  else{
+    pH='<table class="rtable"><thead><tr><th>Nome</th><th>E-mail</th><th>WhatsApp</th><th>Pts</th></tr></thead><tbody>';
+    for(var p2=0;p2<n;p2++){
+      pH+="<tr><td>"+ps[p2].name+'</td><td style="font-size:.68rem;color:var(--lgray)">'+ps[p2].email+'</td><td style="font-size:.68rem;color:var(--lgray)">'+(ps[p2].phone||"-")+'</td><td style="font-weight:700">'+ps[p2].score+"</td></tr>";
+    }
+    pH+="</tbody></table>";
+  }
+  document.getElementById("partHTML").innerHTML=pH;
+
+  document.getElementById("statsHTML").innerHTML=
+    '<div class="adm-stats">'+
+    '<div class="as"><div class="asv">'+n+'</div><div class="asl">Participantes</div></div>'+
+    '<div class="as"><div class="asv">'+avgS+'</div><div class="asl">Média Pts</div></div>'+
+    '<div class="as"><div class="asv">'+avgA+'%</div><div class="asl">Média Acertos</div></div>'+
+    '</div>';
 }
 
+/* EXPORTAR CSV */
 function exportCSV(){
-var ps=rankingCache;if(ps.length===0){alert("Nenhum dado.");return}
-var c="\uFEFFPos,Nome,Email,WhatsApp,Pontos,Acertos,Erros,Tempo,Data\n";
-for(var i=0;i<ps.length;i++)c+=(i+1)+',"'+ps[i].name+'","'+ps[i].email+'","'+(ps[i].phone||"")+'",'+ps[i].score+","+ps[i].ok+","+ps[i].err+","+ps[i].to+',"'+(ps[i].date||"")+"\"\n";
-var b=new Blob([c],{type:"text/csv;charset=utf-8;"});var u=URL.createObjectURL(b);var a=document.createElement("a");a.href=u;a.download="ranking_quiz.csv";document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(u);
+  var ps=rankingCache;
+  if(ps.length===0){alert("Nenhum dado.");return}
+  var c="\uFEFFPos,Nome,Email,WhatsApp,Pontos,Acertos,Erros,Tempo,Data\n";
+  for(var i=0;i<ps.length;i++){
+    c+=(i+1)+',"'+ps[i].name+'","'+ps[i].email+'","'+(ps[i].phone||"")+'",'+ps[i].score+","+ps[i].ok+","+ps[i].err+","+ps[i].to+',"'+(ps[i].date||"")+"\"\n";
+  }
+  var b=new Blob([c],{type:"text/csv;charset=utf-8;"});
+  var u=URL.createObjectURL(b);
+  var a=document.createElement("a");
+  a.href=u;a.download="ranking_quiz.csv";
+  document.body.appendChild(a);a.click();
+  document.body.removeChild(a);URL.revokeObjectURL(u);
 }
 
+/* CADASTRO */
 function register(){
-var name=document.getElementById("inpName").value.trim();
-var email=document.getElementById("inpEmail").value.trim();
-var phone=document.getElementById("inpPhone").value.trim();
-var err=document.getElementById("errPhone");var btn=document.getElementById("btnStart");
-err.style.display="none";
-if(!name){err.textContent="Informe seu nome.";err.style.display="block";return}
-if(!email||email.indexOf("@")<0||email.indexOf(".")<0){err.textContent="E-mail inválido.";err.style.display="block";return}
-var phoneDigits=phone.replace(/\D/g,"");
-if(phoneDigits.length<10||phoneDigits.length>11){err.textContent="WhatsApp inválido. Use DDD + número.";err.style.display="block";return}
-btn.disabled=true;btn.textContent="Verificando...";
-checkEmail(email,function(exists){
-if(exists){err.textContent="⚠️ Este e-mail já participou.";err.style.display="block";btn.disabled=false;btn.textContent="Iniciar Quiz";return}
-pName=name;pEmail=email;pPhone=phone;isTest=false;btn.disabled=false;btn.textContent="Iniciar Quiz";startGame();
-});
+  var name=document.getElementById("inpName").value.trim();
+  var email=document.getElementById("inpEmail").value.trim();
+  var phone=document.getElementById("inpPhone").value.trim();
+  var err=document.getElementById("errPhone");
+  var btn=document.getElementById("btnStart");
+  err.style.display="none";
+
+  if(!name){err.textContent="Informe seu nome.";err.style.display="block";return}
+  if(!email||email.indexOf("@")<0||email.indexOf(".")<0){err.textContent="E-mail inválido.";err.style.display="block";return}
+  var phoneDigits=phone.replace(/\D/g,"");
+  if(phoneDigits.length<10||phoneDigits.length>11){err.textContent="WhatsApp inválido. Use DDD + número.";err.style.display="block";return}
+
+  btn.disabled=true;btn.textContent="Verificando...";
+  checkEmail(email,function(exists){
+    if(exists){err.textContent="⚠️ Este e-mail já participou.";err.style.display="block";btn.disabled=false;btn.textContent="Iniciar Quiz";return}
+    pName=name;pEmail=email;pPhone=phone;isTest=false;
+    btn.disabled=false;btn.textContent="Iniciar Quiz";
+    startGame();
+  });
 }
 
-function startGame(){qs=pickQuestions();cur=0;score=0;okN=0;errN=0;ans=[];locked=false;totalTime=0;initDots();goTo("scrQuiz");loadQ()}
+/* INICIAR JOGO */
+function startGame(){
+  qs=pickQuestions();cur=0;score=0;okN=0;errN=0;ans=[];locked=false;totalTime=0;
+  initDots();goTo("scrQuiz");loadQ();
+}
 
-function initDots(){var c=document.getElementById("dots");c.innerHTML="";for(var i=0;i<NUM_Q;i++){var d=document.createElement("div");d.className="dot"+(i===0?" now":"");d.id="d"+i;c.appendChild(d)}}
+function initDots(){
+  var c=document.getElementById("dots");c.innerHTML="";
+  for(var i=0;i<NUM_Q;i++){
+    var d=document.createElement("div");
+    d.className="dot"+(i===0?" now":"");
+    d.id="d"+i;c.appendChild(d);
+  }
+}
 
 function updateProg(){
-document.getElementById("progFill").style.width=(cur/NUM_Q*100)+"%";
-document.getElementById("progLabel").textContent="Pergunta "+(cur+1)+" de "+NUM_Q;
-document.getElementById("progScore").textContent=score+" pts";
-for(var i=0;i<NUM_Q;i++){var d=document.getElementById("d"+i);if(!d)continue;d.className="dot";if(i===cur)d.classList.add("now");else if(i<cur){var a=ans[i];if(a.to)d.classList.add("dto");else if(a.ok)d.classList.add("dok");else d.classList.add("derr")}}
-}
-
-function loadQ(){
-locked=false;updateProg();
-var q=qs[cur];
-document.getElementById("bTag").textContent=(ICONS[q.b]||"📌")+" "+q.b;
-document.getElementById("qNum").textContent=(cur+1)+"/"+NUM_Q;
-document.getElementById("qTxt").textContent=q.q;
-var L=["A","B","C"];var ctr=document.getElementById("optsEl");ctr.innerHTML="";
-for(var i=0;i<q.o.length;i++){var btn=document.createElement("button");btn.className="opt";btn.id="o"+i;btn.setAttribute("data-idx",i);btn.innerHTML='<span class="ol">'+L[i]+"</span><span>"+q.o[i]+"</span>";btn.addEventListener("click",function(){pick(parseInt(this.getAttribute("data-idx")))});ctr.appendChild(btn)}
-tLeft=TIME;updTimer();var tb=document.getElementById("tBar");tb.style.width="100%";tb.classList.remove("low");
-clearInterval(tmr);qStart=Date.now();
-tmr=setInterval(function(){tLeft=Math.max(0,TIME-(Date.now()-qStart)/1000);updTimer();tb.style.width=(tLeft/TIME*100)+"%";if(tLeft<=5)tb.classList.add("low");if(tLeft<=0){clearInterval(tmr);timeout()}},100);
-}
-
-function updTimer(){var el=document.getElementById("tNum");el.textContent=Math.ceil(tLeft);el.className="timer-num"+(tLeft<=5?" td":tLeft<=10?" tw":"")}
-
-function pick(idx){
-if(locked)return;locked=true;clearInterval(tmr);
-var used=(Date.now()-qStart)/1000;totalTime+=used;
-var q=qs[cur];var btns=document.querySelectorAll(".opt");for(var i=0;i<btns.length;i++)btns[i].disabled=true;
-var isOk=(idx===q.c),pts=0;
-if(isOk){pts=Math.round(MAX_PTS-((MAX_PTS-MIN_PTS)*(used/TIME)));okN++;score+=pts;document.getElementById("o"+idx).classList.add("ok")}
-else{errN++;document.getElementById("o"+idx).classList.add("nok");document.getElementById("o"+q.c).classList.add("ok")}
-for(var j=0;j<btns.length;j++){if(j!==idx&&j!==q.c)btns[j].classList.add("off")}
-ans.push({sel:idx,c:q.c,ok:isOk,to:false,pts:pts});
-feedback(isOk,pts);
-}
-
-function timeout(){
-if(locked)return;locked=true;totalTime+=TIME;
-var q=qs[cur];var btns=document.querySelectorAll(".opt");for(var i=0;i<btns.length;i++)btns[i].disabled=true;
-document.getElementById("o"+q.c).classList.add("ok");
-for(var j=0;j<btns.length;j++){if(j!==q.c)btns[j].classList.add("off")}
-errN++;ans.push({sel:-1,c:q.c,ok:false,to:true,pts:0});
-feedback(null,0);
-}
-
-function feedback(ok,pts){
-var ov=document.getElementById("fbOv");
-var ico=document.getElementById("fbIco");
-var txt=document.getElementById("fbTxt");
-var pt=document.getElementById("fbPts");
-if(ok===true){ico.textContent="✅";txt.textContent="Correto!";pt.textContent="+"+pts+" pts";pt.style.color="var(--ok)"}
-else if(ok===false){ico.textContent="❌";txt.textContent="Incorreto!";pt.textContent="0 pts";pt.style.color="var(--red)"}
-else{ico.textContent="⏰";txt.textContent="Tempo esgotado!";pt.textContent="0 pts";pt.style.color="#fbbf24"}
-ov.classList.add("show");
-setTimeout(function(){
-  cur++;
-  if(cur<NUM_Q){
-    loadQ();
-    setTimeout(function(){ov.classList.remove("show")},50);
-  } else {
-    showResult(isTest);
-    if(!isTest){sendResult(null);sendAnswers()}
-    setTimeout(function(){ov.classList.remove("show")},50);
+  document.getElementById("progFill").style.width=(cur/NUM_Q*100)+"%";
+  document.getElementById("progLabel").textContent="Pergunta "+(cur+1)+" de "+NUM_Q;
+  document.getElementById("progScore").textContent=score+" pts";
+  for(var i=0;i<NUM_Q;i++){
+    var d=document.getElementById("d"+i);
+    if(!d) continue;
+    d.className="dot";
+    if(i===cur) d.classList.add("now");
+    else if(i<cur){
+      var a=ans[i];
+      if(a.to) d.classList.add("dto");
+      else if(a.ok) d.classList.add("dok");
+      else d.classList.add("derr");
+    }
   }
-},1200);
 }
 
+/* CARREGAR PERGUNTA */
+function loadQ(){
+  locked=false;updateProg();
+  var q=qs[cur];
+  document.getElementById("bTag").textContent=(ICONS[q.b]||"📌")+" "+q.b;
+  document.getElementById("qNum").textContent=(cur+1)+"/"+NUM_Q;
+  document.getElementById("qTxt").textContent=q.q;
+  var L=["A","B","C"];
+  var ctr=document.getElementById("optsEl");ctr.innerHTML="";
+  for(var i=0;i<q.o.length;i++){
+    var btn=document.createElement("button");
+    btn.className="opt";btn.id="o"+i;
+    btn.setAttribute("data-idx",i);
+    btn.innerHTML='<span class="ol">'+L[i]+"</span><span>"+q.o[i]+"</span>";
+    btn.addEventListener("click",function(){pick(parseInt(this.getAttribute("data-idx")))});
+    ctr.appendChild(btn);
+  }
+  tLeft=TIME;updTimer();
+  var tb=document.getElementById("tBar");tb.style.width="100%";tb.classList.remove("low");
+  clearInterval(tmr);qStart=Date.now();
+  tmr=setInterval(function(){
+    tLeft=Math.max(0,TIME-(Date.now()-qStart)/1000);
+    updTimer();
+    tb.style.width=(tLeft/TIME*100)+"%";
+    if(tLeft<=5) tb.classList.add("low");
+    if(tLeft<=0){clearInterval(tmr);timeout()}
+  },100);
+}
+
+function updTimer(){
+  var el=document.getElementById("tNum");
+  el.textContent=Math.ceil(tLeft);
+  el.className="timer-num"+(tLeft<=5?" td":tLeft<=10?" tw":"");
+}
+
+/* RESPONDER */
+function pick(idx){
+  if(locked) return;
+  locked=true;clearInterval(tmr);
+  var used=(Date.now()-qStart)/1000;totalTime+=used;
+  var q=qs[cur];
+  var btns=document.querySelectorAll(".opt");
+  for(var i=0;i<btns.length;i++) btns[i].disabled=true;
+  var isOk=(idx===q.c),pts=0;
+  if(isOk){
+    pts=Math.round(MAX_PTS-((MAX_PTS-MIN_PTS)*(used/TIME)));
+    okN++;score+=pts;
+    document.getElementById("o"+idx).classList.add("ok");
+  } else {
+    errN++;
+    document.getElementById("o"+idx).classList.add("nok");
+    document.getElementById("o"+q.c).classList.add("ok");
+  }
+  for(var j=0;j<btns.length;j++){
+    if(j!==idx&&j!==q.c) btns[j].classList.add("off");
+  }
+  ans.push({sel:idx,c:q.c,ok:isOk,to:false,pts:pts});
+  feedback(isOk,pts);
+}
+
+/* TEMPO ESGOTADO */
+function timeout(){
+  if(locked) return;
+  locked=true;totalTime+=TIME;
+  var q=qs[cur];
+  var btns=document.querySelectorAll(".opt");
+  for(var i=0;i<btns.length;i++) btns[i].disabled=true;
+  document.getElementById("o"+q.c).classList.add("ok");
+  for(var j=0;j<btns.length;j++){
+    if(j!==q.c) btns[j].classList.add("off");
+  }
+  errN++;
+  ans.push({sel:-1,c:q.c,ok:false,to:true,pts:0});
+  feedback(null,0);
+}
+
+/* FEEDBACK */
+function feedback(ok,pts){
+  var ov=document.getElementById("fbOv");
+  var ico=document.getElementById("fbIco");
+  var txt=document.getElementById("fbTxt");
+  var pt=document.getElementById("fbPts");
+  if(ok===true){ico.textContent="✅";txt.textContent="Correto!";pt.textContent="+"+pts+" pts";pt.style.color="var(--ok)"}
+  else if(ok===false){ico.textContent="❌";txt.textContent="Incorreto!";pt.textContent="0 pts";pt.style.color="var(--red)"}
+  else{ico.textContent="⏰";txt.textContent="Tempo esgotado!";pt.textContent="0 pts";pt.style.color="#fbbf24"}
+  ov.classList.add("show");
+
+  setTimeout(function(){
+    cur++;
+    if(cur<NUM_Q){
+      loadQ();
+      setTimeout(function(){ov.classList.remove("show")},50);
+    } else {
+      showResult(isTest);
+      if(!isTest){sendResult(null);sendAnswers()}
+      setTimeout(function(){ov.classList.remove("show")},50);
+    }
+  },1200);
+}
+
+/* RESULTADO */
 function showResult(test){
-goTo("scrResult");
-document.getElementById("resPts").textContent=score.toLocaleString("pt-BR");
-document.getElementById("resName").textContent=test?"🧪 Modo Teste":pName;
-document.getElementById("resOk").textContent=okN;
-document.getElementById("resErr").textContent=errN;
-document.getElementById("resTime").textContent=Math.round(totalTime)+"s";
-var pct=Math.round(okN/NUM_Q*100);
-document.getElementById("resPct").textContent=pct+"% de aproveitamento";
-var t=document.getElementById("resTitle");
-if(pct>=90)t.textContent="🏆 Excelente!";
-else if(pct>=70)t.textContent="🔥 Muito Bem!";
-else if(pct>=50)t.textContent="💪 Bom Trabalho!";
-else t.textContent="📚 Continue Estudando!";
-var info=document.getElementById("savedInfo");
-if(test){info.innerHTML='<div class="saved-badge" style="background:rgba(251,191,36,.15);border-color:rgba(251,191,36,.3);color:#fbbf24">🧪 Teste — não registrado</div>'}
-else{info.innerHTML='<div class="saved-badge">✅ Resultado enviado ao ranking</div>';showToast("✅ Resultado registrado!")}
+  goTo("scrResult");
+  document.getElementById("resPts").textContent=score.toLocaleString("pt-BR");
+  document.getElementById("resName").textContent=test?"🧪 Modo Teste":pName;
+  document.getElementById("resOk").textContent=okN;
+  document.getElementById("resErr").textContent=errN;
+  document.getElementById("resTime").textContent=Math.round(totalTime)+"s";
+  var pct=Math.round(okN/NUM_Q*100);
+  document.getElementById("resPct").textContent=pct+"% de aproveitamento";
+  var t=document.getElementById("resTitle");
+  if(pct>=90) t.textContent="🏆 Excelente!";
+  else if(pct>=70) t.textContent="🔥 Muito Bem!";
+  else if(pct>=50) t.textContent="💪 Bom Trabalho!";
+  else t.textContent="📚 Continue Estudando!";
+  var info=document.getElementById("savedInfo");
+  if(test){
+    info.innerHTML='<div class="saved-badge" style="background:rgba(251,191,36,.15);border-color:rgba(251,191,36,.3);color:#fbbf24">🧪 Teste — não registrado</div>';
+  } else {
+    info.innerHTML='<div class="saved-badge">✅ Resultado enviado ao ranking</div>';
+    showToast("✅ Resultado registrado!");
+  }
 }
 
+/* GABARITO */
 function showReview(){
-goTo("scrReview");var L=["A","B","C"];var list=document.getElementById("revList");list.innerHTML="";
-for(var i=0;i<qs.length;i++){var q=qs[i],a=ans[i],bc="rnok",bt="Errou";
-if(a.to){bc="rto";bt="Tempo"}else if(a.ok){bc="rok";bt="Acertou"}
-var d=document.createElement("div");d.className="rev";
-d.innerHTML='<div class="rev-hd"><span class="rev-n">Q'+(i+1)+" · "+(ICONS[q.b]||"")+" "+q.b+'</span><span class="rev-b '+bc+'">'+bt+'</span></div><div class="rev-q">'+q.q+'</div><div class="rev-a">Correta: <span>'+L[q.c]+") "+q.o[q.c]+"</span></div>";
-list.appendChild(d)}
+  goTo("scrReview");
+  var L=["A","B","C"];
+  var list=document.getElementById("revList");list.innerHTML="";
+  for(var i=0;i<qs.length;i++){
+    var q=qs[i],a=ans[i],bc="rnok",bt="Errou";
+    if(a.to){bc="rto";bt="Tempo"}
+    else if(a.ok){bc="rok";bt="Acertou"}
+    var d=document.createElement("div");d.className="rev";
+    d.innerHTML='<div class="rev-hd"><span class="rev-n">Q'+(i+1)+" · "+(ICONS[q.b]||"")+" "+q.b+'</span><span class="rev-b '+bc+'">'+bt+'</span></div><div class="rev-q">'+q.q+'</div><div class="rev-a">Correta: <span>'+L[q.c]+") "+q.o[q.c]+"</span></div>";
+    list.appendChild(d);
+  }
 }
 
-function admLogin(){var p=document.getElementById("admPass").value;var e=document.getElementById("errAdm");e.style.display="none";if(p===ADM_PASS){goTo("scrAdmin");showToast("✅ Login realizado!")}else{e.textContent="Senha incorreta.";e.style.display="block"}}
-function admTest(){isTest=true;pName="Admin (Teste)";pEmail="admin@teste";pPhone="(00) 00000-0000";startGame()}
-function admTab(btn,id){var tabs=document.querySelectorAll(".adm-tab");for(var i=0;i<tabs.length;i++)tabs[i].classList.remove("active");var secs=document.querySelectorAll(".adm-sec");for(var j=0;j<secs.length;j++)secs[j].classList.remove("active");btn.classList.add("active");document.getElementById(id).classList.add("active")}
+/* ADMIN */
+function admLogin(){
+  var p=document.getElementById("admPass").value;
+  var e=document.getElementById("errAdm");
+  e.style.display="none";
+  if(p===ADM_PASS){goTo("scrAdmin");showToast("✅ Login realizado!")}
+  else{e.textContent="Senha incorreta.";e.style.display="block"}
+}
+
+function admTest(){
+  isTest=true;pName="Admin (Teste)";pEmail="admin@teste";pPhone="(00) 00000-0000";
+  startGame();
+}
+
+function admTab(btn,id){
+  var tabs=document.querySelectorAll(".adm-tab");
+  for(var i=0;i<tabs.length;i++) tabs[i].classList.remove("active");
+  var secs=document.querySelectorAll(".adm-sec");
+  for(var j=0;j<secs.length;j++) secs[j].classList.remove("active");
+  btn.classList.add("active");
+  document.getElementById(id).classList.add("active");
+}
+
+/* ATALHOS ENTER */
 document.getElementById("inpPhone").addEventListener("keydown",function(e){if(e.key==="Enter")register()});
 document.getElementById("admPass").addEventListener("keydown",function(e){if(e.key==="Enter")admLogin()});
 </script>
